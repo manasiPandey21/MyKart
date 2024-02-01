@@ -6,10 +6,30 @@ const SingleProduct = (props) => {
   const search = useLocation().search;
   const barcode = new URLSearchParams(search).get('barcode');
   const [product, setProduct] = useState({});
+  //const [isQuantityGreaterThanZero, setQuantity] = useState(false);
+  const [quantity, setQuantity]=useState(0);
+
   useEffect(() => {
     const pdata = PData.find((item) => item.barcode === barcode);
     setProduct(pdata);
+
+    cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) cart = {};
+    if (parseInt(cart[barcode]) >= 1) setQuantity(parseInt(cart[barcode]));
+    else setQuantity(0);
   }, [barcode]);
+
+  let cart;
+
+  const addToCart = () => {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) cart = {};
+    cart[barcode] = 1;
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    if (parseInt(cart[barcode]) >= 1) setQuantity(parseInt(cart[barcode]));
+    else setQuantity(0);
+  }
 
   return (
     <div className='container py-5 center m-md-5 '>
@@ -30,20 +50,27 @@ const SingleProduct = (props) => {
           </div>
           <ul className="mt-3 pl-4 fs-3">
 
-            <li><span className='fw-bold '>•</span> 100% Original Products</li>
+            <li><span className='fw-bold'>•</span> 100% Original Products</li>
             <li><span className='fw-bold'>•</span> Pay on delivery might be available</li>
             <li><span className='fw-bold'>•</span> Easy 14 days returns and exchanges</li>
           </ul>
           <br />
           <hr />
           <br />
-          <span className='border border-success p-2 m-5 rounded align-middle'>
-            <i className="bi bi-dash-lg m-2 py-3  align-middle"></i>
-            <span className='fs-3 text-success py-3 px-2 my-3 align-middle'> 2 </span>
-            <i className="bi bi-plus-lg m-2 py-3 align-middle"></i>
-          </span>
-          <button type="button" className="btn btn-outline-success btn-lg ">Add to Cart</button>
-         
+          <div>
+
+            {
+              quantity ? (
+                <span className='border border-success p-2 m-5 rounded align-middle'>
+                  <i className="bi bi-dash-lg m-2 py-3  align-middle"></i>
+                  <span className='fs-3 text-success py-3 px-2 my-3 align-middle'>{quantity}</span>
+                  <i className="bi bi-plus-lg m-2 py-3 align-middle"></i>
+                </span>
+              ) : (
+                <button type="button" className="btn btn-outline-success btn-lg " onClick={() => addToCart()}>Add to Cart</button>
+              )
+            }
+          </div>
         </div>
       </div>
     </div>

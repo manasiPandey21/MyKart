@@ -3,12 +3,13 @@ import { NavLink } from 'react-router-dom';
 
 
 const Card = (props) => {
-const addToCart=()=>{
-    let cart=JSON.parse(localStorage.getItem('cart'));
-    if(!cart) cart={};
-    cart[JSON.parse(props.barcode)]=1;
-    localStorage.setItem('cart',JSON.stringify(cart));
-}
+    let cart;
+    const addToCart = () => {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        if (!cart) cart = {};
+        cart[JSON.parse(props.barcode)] = 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
     return (
         <div className='col-md-3 col-10 col-sm-6 mx-auto'>
             <div className='card m-2 border-0  h-100 card-hover'>
@@ -27,7 +28,7 @@ const addToCart=()=>{
                             ₹{props.mrp}
                         </span>
                         <a style={{ marginLeft: '120px' }}>
-                            <button type="button" className="btn btn-outline-success btn-lg" onClick={()=>addToCart()}>Add to Cart</button>
+                            <button type="button" className="btn btn-outline-success btn-lg" onClick={() => addToCart()}>Add to Cart</button>
                         </a>
                     </h5>
                 </div>
