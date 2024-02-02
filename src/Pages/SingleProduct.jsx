@@ -6,8 +6,8 @@ const SingleProduct = (props) => {
   const search = useLocation().search;
   const barcode = new URLSearchParams(search).get('barcode');
   const [product, setProduct] = useState({});
-  //const [isQuantityGreaterThanZero, setQuantity] = useState(false);
-  const [quantity, setQuantity]=useState(0);
+  const [quantity, setQuantity] = useState(0);
+  
 
   useEffect(() => {
     const pdata = PData.find((item) => item.barcode === barcode);
@@ -29,6 +29,28 @@ const SingleProduct = (props) => {
 
     if (parseInt(cart[barcode]) >= 1) setQuantity(parseInt(cart[barcode]));
     else setQuantity(0);
+  }
+
+  const incNum=()=>{
+   cart = JSON.parse(localStorage.getItem('cart'));
+   if (!cart) cart = {};
+   setQuantity(quantity+1);
+   cart[barcode]=quantity+1;
+   localStorage.setItem('cart',JSON.stringify(cart));
+  }
+  const decNum=()=>{
+   cart = JSON.parse(localStorage.getItem('cart'));
+   if (!cart) cart = {};
+   setQuantity(quantity-1);
+   cart[barcode]=quantity-1;
+   localStorage.setItem('cart',JSON.stringify(cart));
+  }
+  const removeItem=()=>{
+   cart = JSON.parse(localStorage.getItem('cart'));
+   if (!cart) cart = {};
+   setQuantity(0);
+   cart[barcode]=0;
+   localStorage.setItem('cart',JSON.stringify(cart));
   }
 
   return (
@@ -61,11 +83,14 @@ const SingleProduct = (props) => {
 
             {
               quantity ? (
+                <div>
                 <span className='border border-success p-2 m-5 rounded align-middle'>
-                  <i className="bi bi-dash-lg m-2 py-3  align-middle"></i>
+                  <a onClick={() => decNum()}><i className="bi bi-dash-lg m-2 py-3 align-middle"></i></a>
                   <span className='fs-3 text-success py-3 px-2 my-3 align-middle'>{quantity}</span>
-                  <i className="bi bi-plus-lg m-2 py-3 align-middle"></i>
+                  <a onClick={() => incNum()}><i class="bi bi-plus-lg m-2 py-3 align-middle"></i></a>
                 </span>
+                <button type="button" className="btn btn-outline-danger btn-lg" onClick={()=> removeItem()}><i class="bi bi-trash"></i> Remove</button>
+                </div>   
               ) : (
                 <button type="button" className="btn btn-outline-success btn-lg " onClick={() => addToCart()}>Add to Cart</button>
               )

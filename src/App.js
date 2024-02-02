@@ -11,14 +11,16 @@ import Login from './Pages/Login.jsx';
 const App = () => {
   return (
     <>
-     <Navbar/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product" element={<SingleProduct />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Error />} />
-      </Routes>
+      <Navbar />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/product" element={<SingleProduct />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </BrowserRouter>
       <Footer />
 
     </>

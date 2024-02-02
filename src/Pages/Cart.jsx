@@ -1,142 +1,35 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import CartItem from './CartItem';
 
 const Cart = () => {
+  const list = JSON.parse(localStorage.getItem('cart')) || {};
+  const cartItems = Object.keys(list);
+  console.log(cartItems);
+
+  const removeAll=()=>{
+    localStorage.removeItem('cart');
+  }
+  
+
   return (
     <div className="container">
-      <div className="row justify-content-between mt-5 m-4 p-5">
-        <div className="col-md-6">
-          <div className="card ">
+      <div className="row mt-5  pt-5">
+        <div className="col-md-8">
+          <div className="card p-2">
             <div className="card-header d-flex justify-content-between align-items-center">
               <span className="fs-1">Your Cart</span>
-              <button type="button" className="btn btn-outline-danger btn-lg"><i class="bi bi-trash"></i> Clear Cart</button>
+              <button type="button" className="btn btn-outline-danger btn-lg" onClick={()=>removeAll()}><i className="bi bi-trash"></i> Clear Cart</button>
             </div>
-            <div className="card-body">
-              <div className="row p-4">
-                <div className="col-md-4">
-                  <img
-                    src="http://assets.myntassets.com/assets/images/17097806/2022/2/10/aa9f5212-f2eb-4531-b836-1df0c3d3fe2d1644484313283MastHarbourMenWhiteStripedSneakers1.jpg"
-                    alt="Product"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="col-md-8 p-4">
-                  <h1 className='fw-light fs-2'>Men Striped Sneakers</h1>
-                  <h2 className='fw-light fs-3'>Mast & Harbour Men White Striped Sneakers</h2>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-light fs-4">Color: White</h4>
-                    <h4 className="fw-light fs-4 ">Size: 5</h4>
-                  </div>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-bold fs-3">₹1199 <span className="product-mrp text-muted ml-2 fw-light fs-3"><s>₹ 2999</s></span><span className="fw-bold text-success fs-3"> 45 % Off</span></h4>
-                  </div>
-                  <div>
-
-                    <button type="button" className="btn btn-outline-danger btn-lg"><i class="bi bi-trash"></i> Remove</button>
-                  </div>
-                </div>
-              </div>
-              <div className="row p-3">
-                <div className="col-md-4">
-                  <img
-                    src="http://assets.myntassets.com/assets/images/17097806/2022/2/10/aa9f5212-f2eb-4531-b836-1df0c3d3fe2d1644484313283MastHarbourMenWhiteStripedSneakers1.jpg"
-                    alt="Product"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="col-md-8 p-4">
-                  <h1 className='fw-light fs-3'>Men Striped Sneakers</h1>
-                  <h2 className='fw-light fs-3'>Mast & Harbour Men White Striped Sneakers</h2>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-light fs-4">Color: White</h4>
-                    <h4 className="fw-light fs-4 ">Size: 5</h4>
-                  </div>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-bold fs-3">₹1199 <span className="product-mrp text-muted ml-2 fw-light fs-3"><s>₹ 2999</s></span><span className="fw-bold text-success fs-3"> 45 % Off</span></h4>
-                  </div>
-                  <div>
-
-                    <button type="button" className="btn btn-outline-danger btn-lg"><i class="bi bi-trash"></i> Remove</button>
-                  </div>
-                </div>
-              </div>
-              <div className="row p-3">
-                <div className="col-md-4">
-                  <img
-                    src="http://assets.myntassets.com/assets/images/17097806/2022/2/10/aa9f5212-f2eb-4531-b836-1df0c3d3fe2d1644484313283MastHarbourMenWhiteStripedSneakers1.jpg"
-                    alt="Product"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="col-md-8 p-4">
-                  <h1 className='fw-light fs-3'>Men Striped Sneakers</h1>
-                  <h2 className='fw-light fs-3'>Mast & Harbour Men White Striped Sneakers</h2>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-light fs-4">Color: White</h4>
-                    <h4 className="fw-light fs-4 ">Size: 5</h4>
-                  </div>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-bold fs-3">₹1199 <span className="product-mrp text-muted ml-2 fw-light fs-3"><s>₹ 2999</s></span><span className="fw-bold text-success fs-3"> 45 % Off</span></h4>
-                  </div>
-                  <div>
-
-                    <button type="button" className="btn btn-outline-danger btn-lg"><i class="bi bi-trash"></i> Remove</button>
-                  </div>
-                </div>
-              </div>
-              <div className="row p-3">
-                <div className="col-md-4 p-3">
-                  <img
-                    src="http://assets.myntassets.com/assets/images/17097806/2022/2/10/aa9f5212-f2eb-4531-b836-1df0c3d3fe2d1644484313283MastHarbourMenWhiteStripedSneakers1.jpg"
-                    alt="Product"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="col-md-8 p-4">
-                  <h1 className='fw-light fs-3'>Men Striped Sneakers</h1>
-                  <h2 className='fw-light fs-3'>Mast & Harbour Men White Striped Sneakers</h2>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-light fs-4">Color: White</h4>
-                    <h4 className="fw-light fs-4 ">Size: 5</h4>
-                  </div>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-bold fs-3">₹1199 <span className="product-mrp text-muted ml-2 fw-light fs-3"><s>₹ 2999</s></span><span className="fw-bold text-success fs-3"> 45 % Off</span></h4>
-                  </div>
-                  <div>
-
-                    <button type="button" className="btn btn-outline-danger btn-lg"><i class="bi bi-trash"></i> Remove</button>
-                  </div>
-                </div>
-              </div>
-              <div className="row p-3">
-                <div className="col-md-4">
-                  <img
-                    src="http://assets.myntassets.com/assets/images/17097806/2022/2/10/aa9f5212-f2eb-4531-b836-1df0c3d3fe2d1644484313283MastHarbourMenWhiteStripedSneakers1.jpg"
-                    alt="Product"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="col-md-8 p-4">
-                  <h1 className='fw-light fs-3'>Men Striped Sneakers</h1>
-                  <h2 className='fw-light fs-3'>Mast & Harbour Men White Striped Sneakers</h2>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-light fs-4">Color: White</h4>
-                    <h4 className="fw-light fs-4 ">Size: 5</h4>
-                  </div>
-                  <div className="row my-2 align-items-lg-baseline">
-                    <h4 className="fw-bold fs-3">₹1199 <span className="product-mrp text-muted ml-2 fw-light fs-3"><s>₹ 2999</s></span><span className="fw-bold text-success fs-3"> 45 % Off</span></h4>
-                  </div>
-                  <div>
-
-                    <button type="button" className="btn btn-outline-danger btn-lg"><i class="bi bi-trash"></i> Remove</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {cartItems.map((val, index) => (
+              <CartItem key={index} barcode={val} />
+            ))}
           </div>
         </div>
-        <div className="col-md-4 p-3 m-3">
-          <div className="card m-3">
-            <div className="card-header fw-bold fs-2 ">
+
+        <div className="col-md-4">
+          <div className="card">
+            <div className="card-header fw-bold fs-2">
               Order Summary
             </div>
             <div className="card-body">
@@ -145,7 +38,6 @@ const Cart = () => {
                 <p className="card-text fs-3 d-flex justify-content-between align-items-center text-success">Discount <span></span>-₹6,949.00</p>
                 <p className="card-text fs-3 d-flex justify-content-between align-items-center">Shipping Price <span><span className='product-mrp text-muted ml-2 fw-light fs-3'><s>₹199</s></span> <span className='text-success'>FREE</span></span></p>
               </div>
-
               <br />
               <hr />
               <br />
@@ -158,6 +50,5 @@ const Cart = () => {
     </div>
   );
 }
-
 
 export default Cart;
