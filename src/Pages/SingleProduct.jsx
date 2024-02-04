@@ -54,14 +54,21 @@ const SingleProduct = (props) => {
   }
 
   return (
-    <div className='container py-5 center m-md-5 '>
-      <div className="row py-4 justify-content-center">
+    <div className='container py-5 center m-md-5 my-5 '>
+      <div className="row py-4 justify-content-center my-5">
         <div className="col-12 col-md-3  my-auto ">
           <img src={product.searchImage} className="img-fluid rounded img-thumbnail border-0 mx-auto" alt={props.name} />
         </div>
         <div className="col-12 col-md-7 px-4 my-auto ">
           <h5 className="card-title fw-300 fs-1">{product.name}</h5>
           <p className="card-text fs-2 fw-light">{product.additionalInfo}</p>
+          <div class="rating">
+         <i class="rating__star far fa-star"></i>
+         <i class="rating__star far fa-star"></i>
+         <i class="rating__star far fa-star"></i>
+         <i class="rating__star far fa-star"></i>
+         <i class="rating__star far fa-star"></i>
+   </div>
           <hr />
           <div className="row my-2 ml-1 align-items-lg-baseline">
             <h4 className='fw-300  fs-1'>₹{product.price} <span className='product-mrp text-muted ml-2 fw-light fs-3 '><s>₹{product.mrp}</s></span><span className=' fw-bold text-success fs-3 '> {product.discountDisplayLabel} </span></h4>
@@ -84,11 +91,12 @@ const SingleProduct = (props) => {
             {
               quantity ? (
                 <div>
-                <span className='border border-success p-2 m-5 rounded align-middle'>
+                <span className='btnx border border-success py-2 rounded align-middle me-4'>
                   <a onClick={() => decNum()}><i className="bi bi-dash-lg m-2 py-3 align-middle"></i></a>
                   <span className='fs-3 text-success py-3 px-2 my-3 align-middle'>{quantity}</span>
                   <a onClick={() => incNum()}><i class="bi bi-plus-lg m-2 py-3 align-middle"></i></a>
                 </span>
+                
                 <button type="button" className="btn btn-outline-danger btn-lg" onClick={()=> removeItem()}><i class="bi bi-trash"></i> Remove</button>
                 </div>   
               ) : (

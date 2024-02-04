@@ -23,7 +23,7 @@ const Home = () => {
                   price={val.price}
                   mrp={val.mrp}
                   barcode={val.barcode}
-                  rating={(val.rating).toFixed(2)}
+                  rating={(val.rating).toFixed(1)}
                   reviews={val.reviews}
 
                 />
