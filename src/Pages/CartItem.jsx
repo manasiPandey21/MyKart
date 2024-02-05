@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import PData from '../data/products';
 import { useEffect } from 'react';
-import Cart from './Cart';
 
 
 const CartItem = (props) => {
     const [product, setProduct] = useState();
     const [quantity, setQuantity] = useState(0);
     let pdata;
-
     let cart;
+
     useEffect(() => {
         pdata = PData.find((item) => item.barcode === props.barcode);
         setProduct(pdata);
@@ -26,22 +25,32 @@ const CartItem = (props) => {
         cart[props.barcode] = quantity + 1;
         localStorage.setItem('cart', JSON.stringify(cart));
         props.orderSummary();
+        window.dispatchEvent(new Event("storage"));
     }
+
     const decNum = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
         setQuantity(quantity - 1);
-        cart[props.barcode] = quantity - 1;
+        if (quantity <= 1) {
+            delete cart[props.barcode];
+        } else {
+            cart[props.barcode] = quantity - 1;
+        }
         localStorage.setItem('cart', JSON.stringify(cart));
         props.orderSummary();
+        window.dispatchEvent(new Event("storage"));
     }
+
     const removeItem = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
         setQuantity(0);
-        cart[props.barcode] = 0;
+        delete cart[props.barcode];
         localStorage.setItem('cart', JSON.stringify(cart));
         props.orderSummary();
+        window.dispatchEvent(new Event("storage"));
+
     }
 
     return (
@@ -75,7 +84,6 @@ const CartItem = (props) => {
         ) : (
             <></>
         )
-
     );
 };
 

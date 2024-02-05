@@ -7,50 +7,52 @@ const SingleProduct = (props) => {
   const barcode = new URLSearchParams(search).get('barcode');
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(0);
-  
+  let cart;
 
   useEffect(() => {
     const pdata = PData.find((item) => item.barcode === barcode);
     setProduct(pdata);
-
     cart = JSON.parse(localStorage.getItem('cart'));
     if (!cart) cart = {};
     if (parseInt(cart[barcode]) >= 1) setQuantity(parseInt(cart[barcode]));
     else setQuantity(0);
   }, [barcode]);
 
-  let cart;
-
   const addToCart = () => {
     cart = JSON.parse(localStorage.getItem('cart'));
     if (!cart) cart = {};
     cart[barcode] = 1;
     localStorage.setItem('cart', JSON.stringify(cart));
-
     if (parseInt(cart[barcode]) >= 1) setQuantity(parseInt(cart[barcode]));
     else setQuantity(0);
+    window.dispatchEvent(new Event("storage"));
   }
 
-  const incNum=()=>{
-   cart = JSON.parse(localStorage.getItem('cart'));
-   if (!cart) cart = {};
-   setQuantity(quantity+1);
-   cart[barcode]=quantity+1;
-   localStorage.setItem('cart',JSON.stringify(cart));
+  const incNum = () => {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) cart = {};
+    setQuantity(quantity + 1);
+    cart[barcode] = quantity + 1;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event("storage"));
   }
-  const decNum=()=>{
-   cart = JSON.parse(localStorage.getItem('cart'));
-   if (!cart) cart = {};
-   setQuantity(quantity-1);
-   cart[barcode]=quantity-1;
-   localStorage.setItem('cart',JSON.stringify(cart));
+
+  const decNum = () => {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) cart = {};
+    setQuantity(quantity - 1);
+    cart[barcode] = quantity - 1;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event("storage"));
   }
-  const removeItem=()=>{
-   cart = JSON.parse(localStorage.getItem('cart'));
-   if (!cart) cart = {};
-   setQuantity(0);
-   cart[barcode]=0;
-   localStorage.setItem('cart',JSON.stringify(cart));
+
+  const removeItem = () => {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) cart = {};
+    setQuantity(0);
+    cart[barcode] = 0;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event("storage"));
   }
 
   return (
@@ -63,12 +65,12 @@ const SingleProduct = (props) => {
           <h5 className="card-title fw-300 fs-1">{product.name}</h5>
           <p className="card-text fs-2 fw-light">{product.additionalInfo}</p>
           <div class="rating">
-         <i class="rating__star far fa-star"></i>
-         <i class="rating__star far fa-star"></i>
-         <i class="rating__star far fa-star"></i>
-         <i class="rating__star far fa-star"></i>
-         <i class="rating__star far fa-star"></i>
-   </div>
+            <i class="rating__star far fa-star"></i>
+            <i class="rating__star far fa-star"></i>
+            <i class="rating__star far fa-star"></i>
+            <i class="rating__star far fa-star"></i>
+            <i class="rating__star far fa-star"></i>
+          </div>
           <hr />
           <div className="row my-2 ml-1 align-items-lg-baseline">
             <h4 className='fw-300  fs-1'>₹{product.price} <span className='product-mrp text-muted ml-2 fw-light fs-3 '><s>₹{product.mrp}</s></span><span className=' fw-bold text-success fs-3 '> {product.discountDisplayLabel} </span></h4>
@@ -87,18 +89,17 @@ const SingleProduct = (props) => {
           <hr />
           <br />
           <div>
-
             {
               quantity ? (
                 <div>
-                <span className='btnx border border-success py-2 rounded align-middle me-4'>
-                  <a onClick={() => decNum()}><i className="bi bi-dash-lg m-2 py-3 align-middle"></i></a>
-                  <span className='fs-3 text-success py-3 px-2 my-3 align-middle'>{quantity}</span>
-                  <a onClick={() => incNum()}><i class="bi bi-plus-lg m-2 py-3 align-middle"></i></a>
-                </span>
-                
-                <button type="button" className="btn btn-outline-danger btn-lg" onClick={()=> removeItem()}><i class="bi bi-trash"></i> Remove</button>
-                </div>   
+                  <span className='btnx border border-success py-2 rounded align-middle me-4'>
+                    <a onClick={() => decNum()}><i className="bi bi-dash-lg m-2 py-3 align-middle"></i></a>
+                    <span className='fs-3 text-success py-3 px-2 my-3 align-middle'>{quantity}</span>
+                    <a onClick={() => incNum()}><i class="bi bi-plus-lg m-2 py-3 align-middle"></i></a>
+                  </span>
+
+                  <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => removeItem()}><i class="bi bi-trash"></i> Remove</button>
+                </div>
               ) : (
                 <button type="button" className="btn btn-outline-success btn-lg " onClick={() => addToCart()}>Add to Cart</button>
               )

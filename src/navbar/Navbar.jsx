@@ -1,8 +1,28 @@
 import React, { useState } from 'react';
 import "../navbar/navbar.css"
 import "bootstrap/dist/css/bootstrap.min.css"
+
 const Navbar = () => {
-    const [showMediaIcons, setShowMediaIcons] = useState(false);
+    let [totalQuantity, setTotalQuantity] = useState(0);
+    let list = JSON.parse(localStorage.getItem('cart')) || {};
+    let cartItems = Object.keys(list);
+    let sum = 0;
+
+    cartItems.forEach((barcode) => {
+        sum += list[barcode];
+    });
+    totalQuantity = sum;
+
+    window.addEventListener("storage", (e) => {
+        list = JSON.parse(localStorage.getItem('cart')) || {};
+        cartItems = Object.keys(list);
+        sum = 0;
+        cartItems.forEach((barcode) => {
+            sum += list[barcode];
+        })
+        setTotalQuantity(sum);
+    });
+
     return (
         <nav className='navbar navbar-expand navbar-light bg-light fixed-top shadow-sm py-3 '>
             <div class="container-fluid">
@@ -14,15 +34,17 @@ const Navbar = () => {
             <div className='collapse navbar-collapse'>
                 <ul className='navbar-nav ms-auto'>
                     <li className="nav-item mx-3">
-                        <a href="./cart"><i className="bi bi-cart h3"></i></a>
-
+                        <a href='./cart' className="bi bi-cart h2 position-relative border-0">
+                            <span className="position-absolute top-0 start-90 translate-middle badge badge-primary rounded-circle-small badge rounded-pill bg-success fs-5 fw-light">
+                                {totalQuantity}
+                            </span>
+                        </a>
                     </li>
                     <li className="nav-item mx-3">
                         <i class="bi bi-upload  h3"></i>
                     </li>
                     <li className="nav-item ms-3 me-4">
-                        <a href="./login"><i class="bi bi-box-arrow-in-right h3"></i></a>
-
+                        <a href="./login"><i class="bi bi-box-arrow-in-right h2 text-body"></i></a>
                     </li>
                 </ul>
             </div>

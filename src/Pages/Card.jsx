@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 const Card = (props) => {
     const [quantity, setQuantity] = useState(0);
+    let cart;
 
     useEffect(() => {
         cart = JSON.parse(localStorage.getItem('cart'));
@@ -11,34 +12,35 @@ const Card = (props) => {
         else setQuantity(0);
     }, [props.barcode]);
 
-    let cart;
-
     const addToCart = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
         cart[props.barcode] = 1;
         localStorage.setItem('cart', JSON.stringify(cart));
-
         if (parseInt(cart[props.barcode]) >= 1) setQuantity(parseInt(cart[props.barcode]));
         else setQuantity(0);
+        window.dispatchEvent(new Event("storage"));
     }
+
     const incNum = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
         setQuantity(quantity + 1);
         cart[props.barcode] = quantity + 1;
         localStorage.setItem('cart', JSON.stringify(cart));
+        window.dispatchEvent(new Event("storage"));
     }
+
     const decNum = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
         setQuantity(quantity - 1);
         cart[props.barcode] = quantity - 1;
         localStorage.setItem('cart', JSON.stringify(cart));
+        window.dispatchEvent(new Event("storage"));
     }
 
     return (
-
         <div className='col-md-3 col-10 col-sm-6 mx-auto'>
             <div className='card m-2 border-0  h-100 card-hover'>
                 <NavLink to={`/product?barcode=${props.barcode}`}>
@@ -55,14 +57,12 @@ const Card = (props) => {
                     <div className='row'>
                         <div className='col'>
                             <h5 className="card-title fw-bolder pt-3">
-                                ₹{props.price} 
+                                ₹{props.price}
                                 <span className=" ms-2 text-decoration-line-through fw-light">
-                                     ₹{props.mrp}
+                                    ₹{props.mrp}
                                 </span>
                             </h5>
                         </div>
-
-
                         <div className='col text-end'>
                             {
                                 quantity ? (
@@ -82,7 +82,6 @@ const Card = (props) => {
                 </div>
             </div>
         </div>
-
     );
 }
 
