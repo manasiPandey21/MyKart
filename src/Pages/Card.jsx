@@ -3,7 +3,17 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 const Card = (props) => {
     const [quantity, setQuantity] = useState(0);
+    const [isHovering, setIsHovering] = useState(false);
+
     let cart;
+
+    const handleMouseOver = () => {
+        setIsHovering(true);
+      };
+    
+      const handleMouseOut = () => {
+        setIsHovering(false);
+      };
 
     useEffect(() => {
         cart = JSON.parse(localStorage.getItem('cart'));
@@ -42,7 +52,9 @@ const Card = (props) => {
 
     return (
         <div className='col-md-3 col-10 col-sm-6 mx-auto'>
-            <div className='card m-2 border-0  h-100 card-hover'>
+            <div className='card m-2 border-0  h-100' onMouseOver={handleMouseOver}
+               onMouseOut={handleMouseOut}>
+               
                 <NavLink to={`/product?barcode=${props.barcode}`}>
                     <img src={props.searchImage} className="card-img-top" alt={props.searchImage} />
                 </NavLink>
@@ -74,7 +86,11 @@ const Card = (props) => {
                                         </span>
                                     </div>
                                 ) : (
-                                    <button type="button" className="btn btn-outline-success btn-lg" onClick={() => addToCart()}>Add to Cart</button>
+                                    isHovering && (
+                                        <button type='button' className='btn btn-outline-success btn-lg on-hover' onClick={() => addToCart()}>
+                                            Add to Cart
+                                        </button>
+                                    )
                                 )
                             }
                         </div>
