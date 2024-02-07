@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin:0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -32,4 +32,7 @@ code {
   
 .full-stars:before {
 	-webkit-text-stroke: 1px orange;
+}
+.margin-fixed{
+	top: 70px!important;
 }

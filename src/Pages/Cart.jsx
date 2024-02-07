@@ -61,7 +61,7 @@ const Cart = () => {
               </div>
             </div>
             <div className="col-md-4">
-              <div className="card sticky-top">
+              <div className="margin-fixed card sticky-top">
                 <div className="card-header fw-bold fs-2 py-3">
                   Order Summary
                 </div>

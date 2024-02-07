@@ -8,6 +8,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from './Pages/Footer.jsx';
 import Navbar from './navbar/Navbar.jsx';
 import Login from './Pages/Login.jsx';
+import Filter from './Pages/Filter.jsx'
 const App = () => {
   return (
     <>
