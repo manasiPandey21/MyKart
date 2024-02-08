@@ -9,6 +9,7 @@ import Footer from './Pages/Footer.jsx';
 import Navbar from './navbar/Navbar.jsx';
 import Login from './Pages/Login.jsx';
 import Filter from './Pages/Filter.jsx'
+import sort from './Pages/sort.jsx';
 const App = () => {
   return (
     <>
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/product" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/sort" element={<sort />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
