@@ -13,9 +13,34 @@ const Home = () => {
 
   useEffect(()=>{
     filteredProducts=PData;
+    let filtersInSessionStorage=JSON.parse(sessionStorage.getItem('filters'));
+    appliedBrands=filtersInSessionStorage?.brands || [];
+    appliedCategories=filtersInSessionStorage?.categories || [];
+    appliedColors=filtersInSessionStorage?.colors || [];
+    appliedGenders=filtersInSessionStorage?.gender || [];
+    
+    if(appliedBrands.length){
+      filteredProducts=filteredProducts.filter((product)=>appliedBrands.includes(product.brand))
+    }
+    if(appliedCategories.length){
+      filteredProducts=filteredProducts.filter((product)=>appliedCategories.includes(product.category))
+    }
+    if(appliedColors.length){
+      filteredProducts=filteredProducts.filter((product)=>appliedColors.includes(product.color))
+    }
+    if(appliedGenders.length){
+      filteredProducts=filteredProducts.filter((product)=>appliedGenders.includes(product.gender))
+    }
+    setFilteredProducts(filteredProducts);
   })
   
   let addToFilter = (e, type, val) => {
+    let filtersInSessionStorage=JSON.parse(sessionStorage.getItem('filters'));
+    appliedBrands=filtersInSessionStorage?.brands || [];
+    appliedCategories=filtersInSessionStorage?.categories || [];
+    appliedColors=filtersInSessionStorage?.colors || [];
+    appliedGenders=filtersInSessionStorage?.gender || [];
+
     if(e.target.checked){
       switch (type) {
         case 'brand':
@@ -73,7 +98,15 @@ const Home = () => {
     if(appliedGenders.length){
       filteredProducts=filteredProducts.filter((product)=>appliedGenders.includes(product.gender))
     }
-    setFilteredProducts(filteredProducts)
+    setFilteredProducts(filteredProducts);
+
+    let filters={
+      brands : appliedBrands,
+      categories : appliedCategories,
+      colors : appliedColors,
+      genders : appliedGenders,
+    };
+    sessionStorage.setItem('filters',JSON.stringify(filters));
   }
   return (
     <>
