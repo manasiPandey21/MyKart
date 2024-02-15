@@ -3,6 +3,7 @@ import Card from './Card';
 import PData from '../data/products';
 import Filter from './Filter';
 import { type } from '@testing-library/user-event/dist/type';
+import Sort from './sort';
 const Home = () => {
   let appliedBrands = [];
   let appliedCategories = [];
@@ -59,11 +60,6 @@ const Home = () => {
       }
     }
 
-    // console.log(appliedBrands);
-    // console.log(appliedCategories);
-    // console.log(appliedColors);
-    // console.log(appliedGenders)
-
     if(appliedBrands.length){
       filteredProducts=filteredProducts.filter((product)=>appliedBrands.includes(product.brand))
       
@@ -79,12 +75,17 @@ const Home = () => {
     }
     setFilteredProducts(filteredProducts)
   }
-
   return (
     <>
-      <div className='my-5'>
-      </div>
+       <div className='my-5'></div>
       <div className='container-fluid mb-5'>
+        <div className='row'>
+          <div className='col-12 d-flex justify-content-end px-4 py-2'>
+            <div>
+              <Sort />
+            </div>
+          </div>
+        </div>
         <div className='row'>
           <div className='margin-fix col-2'>
             <Filter 

@@ -2,7 +2,7 @@ import React from 'react';
 import PData from '../data/products';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { applyMiddleware } from 'redux';
+
 
 const Filter = (addToFilter) => {
   const brands = [...new Set(PData.map((Val) => Val.brand))];
@@ -16,7 +16,7 @@ const Filter = (addToFilter) => {
         <ul className='list-group list-group-flush'>
           <li className='list-group-item fs-2 fw-semibold'>Filters</li>
           <li className='list-group-item'>
-            <span className='p-2 fs-5'
+            <span className='p-2 fs-3'
               data-bs-toggle='collapse'
               data-bs-target='#brandCollapse'
               aria-expanded='false'
@@ -34,7 +34,7 @@ const Filter = (addToFilter) => {
                       id={`brandCheckbox-${index}`}
                       name={`brandCheckbox-${brand}`}
                       onChange={(e) => addToFilter.addToFilter(e, 'brand', brand)} />
-                    <label className='form-check-label' htmlFor={`brandCheckbox-${index}`}>
+                    <label className='form-check-label fs-5' htmlFor={`brandCheckbox-${index}`}>
                       {brand}
                     </label>
                   </div>
@@ -43,7 +43,7 @@ const Filter = (addToFilter) => {
             </div>
           </li>
           <li className='list-group-item'>
-            <span className='p-2 fs-5'
+            <span className='p-2 fs-3'
               data-bs-toggle='collapse'
               data-bs-target='#categoryCollapse'
               aria-expanded='false'
@@ -56,7 +56,7 @@ const Filter = (addToFilter) => {
                 {categories.map((category, index) => (
                   <div className='form-check' key={index}>
                     <input className='form-check-input' type='checkbox' value={category} id={`categoryCheckbox-${index}`} onChange={(e) => addToFilter.addToFilter(e, 'category', category)}/>
-                    <label className='form-check-label' htmlFor={`categoryCheckbox-${index}`}>
+                    <label className='form-check-label fs-5' htmlFor={`categoryCheckbox-${index}`}>
                       {category}
                     </label>
                   </div>
@@ -65,7 +65,7 @@ const Filter = (addToFilter) => {
             </div>
           </li>
           <li className='list-group-item'>
-            <span className='p-2 fs-5'
+            <span className='p-2 fs-3'
               data-bs-toggle='collapse'
               data-bs-target='#colorCollapse'
               aria-expanded='false'
@@ -78,7 +78,7 @@ const Filter = (addToFilter) => {
                 {colors.map((color, index) => (
                   <div className='form-check' key={index}>
                     <input className='form-check-input' type='checkbox' value={color} id={`colorCheckbox-${index}`} onChange={(e) => addToFilter.addToFilter(e, 'color', color)}/>
-                    <label className='form-check-label' htmlFor={`colorCheckbox-${index}`}>
+                    <label className='form-check-label fs-5' htmlFor={`colorCheckbox-${index}`}>
                       {color}
                     </label>
                   </div>
@@ -87,7 +87,7 @@ const Filter = (addToFilter) => {
             </div>
           </li>
           <li className='list-group-item'>
-            <span className='p-2 fs-5'
+            <span className='p-2 fs-3'
               data-bs-toggle='collapse'
               data-bs-target='#genderCollapse'
               aria-expanded='false'
@@ -100,7 +100,7 @@ const Filter = (addToFilter) => {
                 {genders.map((gender, index) => (
                   <div className='form-check' key={index}>
                     <input className='form-check-input' type='checkbox' value={gender} id={`genderCheckbox-${index}`} onChange={(e) => addToFilter.addToFilter(e, 'gender', gender)} />
-                    <label className='form-check-label' htmlFor={`genderCheckbox-${index}`}>
+                    <label className='form-check-label fs-5' htmlFor={`genderCheckbox-${index}`}>
                       {gender}
                     </label>
                   </div>
