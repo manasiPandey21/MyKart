@@ -77,7 +77,9 @@ const SingleProduct = (props) => {
           </div>
           <div className="row my-2 ml-1 align-items-lg-baseline">
             <h4 className=" fw-100">Color : {product.color}</h4>
-            <h4 className="fw-100">Size : {product.sizes}</h4>
+            {product && product.sizes && (
+              <h4 className="fw-light fs-4">Size: {product.sizes.split(",")[0]}</h4>
+            )}
           </div>
           <ul className="mt-3 pl-4 fs-3">
 

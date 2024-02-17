@@ -28,7 +28,7 @@ const Navbar = () => {
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">
                     <img src="m.png" alt="" width="30" height="24" className="d-inline-block align-text-bottom" />
-                    <span className='fw-500 fs-2 align-items-lg-baseline p-2'>  ManasiWorld</span>
+                    <span className='fw-500 fs-2 align-items-lg-baseline p-2'>  MyKart</span>
                 </a>
             </div>
             <div className='collapse navbar-collapse'>

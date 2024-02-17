@@ -5,6 +5,7 @@ import Sort from './sort';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+
 const Home = () => {
   let brands = [...new Set(PData.map((Val) => Val.brand))];
   let categories = [...new Set(PData.map((Val) => Val.category))];
@@ -115,20 +116,20 @@ const Home = () => {
         <div className='row'>
           <div className='margin-fix col-2'>
             <div className='margin-fixed sticky-top'>
-              <div className='card' style={{ width: '20rem' }}>
+              <div className='card border-0 shadow-sm' style={{ width: '23rem' }}>
                 <ul className='list-group list-group-flush'>
                   <li className='list-group-item fs-2 fw-semibold'>Filters</li>
                   <li className='list-group-item'>
-                    <span className='p-2 fs-3'
+                    <span className='p-1 fs-3'
                       data-bs-toggle='collapse'
                       data-bs-target='#brandCollapse'
                       aria-expanded='false'
                       aria-controls='brandCollapse'
                     >
-                      Brands
+                      Brands <i class="bi bi-chevron-down"></i>
                     </span>
                     <div className='collapse' id='brandCollapse'>
-                      <div className='card card-body border-0'>
+                      <div className=' card-body '>
                         {brands.map((brand, index) => (
                           <div className='form-check' key={index}>
                             <input className='form-check-input'
@@ -138,7 +139,7 @@ const Home = () => {
                               id={`brandCheckbox-${index}`}
                               name={`brandCheckbox-${brand}`}
                               onChange={(e) => addToFilter(e, 'brand', brand)} />
-                            <label className='form-check-label fs-5' htmlFor={`brandCheckbox-${index}`}>
+                            <label className='form-check-label fs-5 p-1' htmlFor={`brandCheckbox-${index}`}>
                               {brand}
                             </label>
                           </div>
@@ -153,10 +154,10 @@ const Home = () => {
                       aria-expanded='false'
                       aria-controls='categoryCollapse'
                     >
-                      Categories
+                      Categories <i class="bi bi-chevron-down"></i>
                     </span>
                     <div className='collapse' id='categoryCollapse'>
-                      <div className='card card-body border-0'>
+                    <div className=' card-body '>
                         {categories.map((category, index) => (
                           <div className='form-check' key={index}>
                             <input className='form-check-input'
@@ -165,7 +166,7 @@ const Home = () => {
                               defaultChecked={appliedCategories.includes(category) ? true : false}
                               id={`categoryCheckbox-${index}`}
                               onChange={(e) => addToFilter(e, 'category', category)} />
-                            <label className='form-check-label fs-5' htmlFor={`categoryCheckbox-${index}`}>
+                            <label className='form-check-label fs-5 p-1' htmlFor={`categoryCheckbox-${index}`}>
                               {category}
                             </label>
                           </div>
@@ -180,10 +181,10 @@ const Home = () => {
                       aria-expanded='false'
                       aria-controls='colorCollapse'
                     >
-                      Colors
+                      Colors <i class="bi bi-chevron-down"></i>
                     </span>
                     <div className='collapse' id='colorCollapse'>
-                      <div className='card card-body border-0'>
+                    <div className=' card-body '>
                         {colors.map((color, index) => (
                           <div className='form-check' key={index}>
                             <input className='form-check-input'
@@ -191,7 +192,7 @@ const Home = () => {
                               value={color}
                               defaultChecked={appliedColors.includes(color) ? true : false}
                               id={`colorCheckbox-${index}`} onChange={(e) => addToFilter(e, 'color', color)} />
-                            <label className='form-check-label fs-5' htmlFor={`colorCheckbox-${index}`}>
+                            <label className='form-check-label fs-5 p-1' htmlFor={`colorCheckbox-${index}`}>
                               {color}
                             </label>
                           </div>
@@ -206,10 +207,10 @@ const Home = () => {
                       aria-expanded='false'
                       aria-controls='genderCollapse'
                     >
-                      Genders
+                      Genders <i class="bi bi-chevron-down"></i>
                     </span>
                     <div className='collapse' id='genderCollapse'>
-                      <div className='card card-body border-0'>
+                    <div className=' card-body '>
                         {genders.map((gender, index) => (
                           <div className='form-check' key={index}>
                             <input className='form-check-input'
@@ -217,7 +218,7 @@ const Home = () => {
                               value={gender}
                               defaultChecked={appliedGenders.includes(gender) ? true : false}
                               id={`genderCheckbox-${index}`} onChange={(e) => addToFilter(e, 'gender', gender)} />
-                            <label className='form-check-label fs-5' htmlFor={`genderCheckbox-${index}`}>
+                            <label className='form-check-label fs-5 p-1' htmlFor={`genderCheckbox-${index}`}>
                               {gender}
                             </label>
                           </div>
@@ -229,22 +230,37 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className='col-10 mx-auto'>
+          <div className='col-10 mx-auto pt-2'>
             <div className='row gy-4'>
               {
-                filteredProducts.map((val, ind) => {
-                  return <Card
-                    key={ind}
-                    searchImage={val.searchImage}
-                    brand={val.brand}
-                    name={val.name}
-                    price={val.price}
-                    mrp={val.mrp}
-                    barcode={val.barcode}
-                    rating={(val.rating).toFixed(1)}
-                    reviews={val.reviews}
-                  />
-                })
+                filteredProducts.length > 0 ? (
+                  <div className='col-11 mx-auto'>
+                    <div className='row gy-4'>
+                      {filteredProducts.map((val, ind) => (
+                        <Card
+                          key={ind}
+                          searchImage={val.searchImage}
+                          brand={val.brand}
+                          name={val.name}
+                          price={val.price}
+                          mrp={val.mrp}
+                          barcode={val.barcode}
+                          rating={(val.rating).toFixed(1)}
+                          reviews={val.reviews}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className='col-12 text-center mt-4'>
+                    <div className='container m-5 h-100 w-75 d-flex align-items-center justify-content-center'>
+                      <div>
+                        <h1 className=' pt-5 fw-normal fs-1'>Oops! nothing matched :(</h1>
+                        <img src="Empty.gif" className="rounded h-100 w-75" alt="..." />
+                      </div>
+                    </div>
+                  </div>
+                )
               }
             </div>
           </div>

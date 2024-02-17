@@ -65,7 +65,9 @@ const CartItem = (props) => {
                         <h2 className='fw-light fs-3'>{product.brand}</h2>
                         <div className="row my-2 align-items-lg-baseline">
                             <h4 className="fw-light fs-5">Color : {product.color}</h4>
-                            <h4 className="fw-light fs-4">Size : {product.sizes}</h4>
+                            {product && product.sizes && (
+                                <h4 className="fw-light fs-4">Size: {product.sizes.split(",")[0]}</h4>
+                            )}
                         </div>
                         <div className="row my-2 align-items-lg-baseline">
                             <h4 className="fw-mz fs-3">₹{product.price} <span className="product-mrp text-muted ml-2 fw-light fs-3"><s>₹{product.mrp}</s></span><span className="fw-300 text-success fs-3"> {product.discountDisplayLabel}</span></h4>
