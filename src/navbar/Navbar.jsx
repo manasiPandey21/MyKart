@@ -25,9 +25,9 @@ const Navbar = () => {
 
     return (
         <nav className='navbar navbar-expand navbar-light bg-light fixed-top shadow-sm py-3 '>
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">
-                    <img src="m.png" alt="" width="30" height="24" class="d-inline-block align-text-bottom" />
+            <div className="container-fluid">
+                <a className="navbar-brand" href="/">
+                    <img src="m.png" alt="" width="30" height="24" className="d-inline-block align-text-bottom" />
                     <span className='fw-500 fs-2 align-items-lg-baseline p-2'>  ManasiWorld</span>
                 </a>
             </div>
@@ -41,10 +41,10 @@ const Navbar = () => {
                         </a>
                     </li>
                     <li className="nav-item mx-3">
-                        <i class="bi bi-upload  h3"></i>
+                        <i className="bi bi-upload  h3"></i>
                     </li>
                     <li className="nav-item ms-3 me-4">
-                        <a href="./login"><i class="bi bi-box-arrow-in-right h2 text-body"></i></a>
+                        <a href="./login"><i className="bi bi-box-arrow-in-right h2 text-body"></i></a>
                     </li>
                 </ul>
             </div>

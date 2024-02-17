@@ -64,7 +64,7 @@ const Card = (props) => {
                         {props.name}
                     </h5>
                     <div className='fs-4 fw-lighter'>
-                        <span class="badge bg-success h-20 w-1">{props.rating} <i className="bi bi-star-fill"></i></span> <span className='fw-light'> ({props.reviews})</span>
+                        <span className="badge bg-success h-20 w-1">{props.rating} <i className="bi bi-star-fill"></i></span> <span className='fw-light'> ({props.reviews})</span>
                     </div>
                     <div className='row'>
                         <div className='col'>

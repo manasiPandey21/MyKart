@@ -64,12 +64,12 @@ const SingleProduct = (props) => {
         <div className="col-12 col-md-7 px-4 my-auto ">
           <h5 className="card-title fw-300 fs-1">{product.name}</h5>
           <p className="card-text fs-2 fw-light">{product.additionalInfo}</p>
-          <div class="rating">
-            <i class="rating__star far fa-star"></i>
-            <i class="rating__star far fa-star"></i>
-            <i class="rating__star far fa-star"></i>
-            <i class="rating__star far fa-star"></i>
-            <i class="rating__star far fa-star"></i>
+          <div className="rating">
+            <i className="rating__star far fa-star"></i>
+            <i className="rating__star far fa-star"></i>
+            <i className="rating__star far fa-star"></i>
+            <i className="rating__star far fa-star"></i>
+            <i className="rating__star far fa-star"></i>
           </div>
           <hr />
           <div className="row my-2 ml-1 align-items-lg-baseline">
@@ -95,10 +95,10 @@ const SingleProduct = (props) => {
                   <span className='btnx border border-success py-2 rounded align-middle me-4'>
                     <a onClick={() => decNum()}><i className="bi bi-dash-lg m-2 py-3 align-middle"></i></a>
                     <span className='fs-3 text-success py-3 px-2 my-3 align-middle'>{quantity}</span>
-                    <a onClick={() => incNum()}><i class="bi bi-plus-lg m-2 py-3 align-middle"></i></a>
+                    <a onClick={() => incNum()}><i className="bi bi-plus-lg m-2 py-3 align-middle"></i></a>
                   </span>
 
-                  <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => removeItem()}><i class="bi bi-trash"></i> Remove</button>
+                  <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => removeItem()}><i className="bi bi-trash"></i> Remove</button>
                 </div>
               ) : (
                 <button type="button" className="btn btn-outline-success btn-lg " onClick={() => addToCart()}>Add to Cart</button>
