@@ -28,6 +28,7 @@ const Home = () => {
     setFilteredProducts(filteredProducts);
   }, [])
 
+
   let addToFilter = (e, type, val) => {
     let filtersInSessionStorage = JSON.parse(sessionStorage.getItem('filters'));
     appliedBrands = filtersInSessionStorage?.brands || [];
@@ -79,20 +80,23 @@ const Home = () => {
       }
     }
 
+    let tempProducts=PData;
+
     if (appliedBrands.length) {
-      filteredProducts = filteredProducts.filter((product) => appliedBrands.includes(product.brand))
+      tempProducts = tempProducts.filter((product) => appliedBrands.includes(product.brand))
 
     }
     if (appliedCategories.length) {
-      filteredProducts = filteredProducts.filter((product) => appliedCategories.includes(product.category))
+      tempProducts = tempProducts.filter((product) => appliedCategories.includes(product.category))
     }
     if (appliedColors.length) {
-      filteredProducts = filteredProducts.filter((product) => appliedColors.includes(product.color))
+      tempProducts = tempProducts.filter((product) => appliedColors.includes(product.color))
     }
     if (appliedGenders.length) {
-      filteredProducts = filteredProducts.filter((product) => appliedGenders.includes(product.gender))
+      tempProducts = tempProducts.filter((product) => appliedGenders.includes(product.gender))
     }
-    setFilteredProducts(filteredProducts);
+    setFilteredProducts(tempProducts);
+    console.log(filteredProducts);
 
     let filters = {
       brands: appliedBrands,
@@ -116,29 +120,39 @@ const Home = () => {
         <div className='row'>
           <div className='margin-fix col-2'>
             <div className='margin-fixed sticky-top'>
-              <div className='card border-0 shadow-sm' style={{ width: '23rem' }}>
+              <div className='card border-0 shadow-sm' style={{ width: '23rem', maxHeight: '670px', overflowY: 'auto', scrollbarWidth: 'thin', scrollbarColor: 'transparent transparent' }}>
                 <ul className='list-group list-group-flush'>
-                  <li className='list-group-item fs-2 fw-semibold'>Filters</li>
+                  <li className='list-group-item fs-2 fw-semibold d-flex align-items-center'>Filters {appliedBrands.length > 0 || appliedColors.length > 0 || appliedGenders.length > 0 || appliedCategories.length > 0 ? (
+                    <button type="button" class="btn btn-outline-dark px-3 ms-auto py-0 fs-4" onClick={() => setFilteredProducts(PData)}>Reset</button>
+                  ) : null}</li>
                   <li className='list-group-item'>
-                    <span className='p-1 fs-3'
+                    <span
+                      className='p-1 fs-3'
                       data-bs-toggle='collapse'
                       data-bs-target='#brandCollapse'
-                      aria-expanded='false'
+                      aria-expanded={appliedBrands.length > 0 ? 'true' : 'false'}
                       aria-controls='brandCollapse'
                     >
-                      Brands <i class="bi bi-chevron-down"></i>
+                      Brands <i className="bi bi-chevron-down"></i>
+                      {appliedBrands.length >=1 ? (
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1">{appliedBrands.length}</span>
+                      ) : null}
                     </span>
                     <div className='collapse' id='brandCollapse'>
                       <div className=' card-body '>
                         {brands.map((brand, index) => (
                           <div className='form-check' key={index}>
-                            <input className='form-check-input'
+                            <input
+                              className='form-check-input'
                               type='checkbox'
                               value={brand}
                               defaultChecked={appliedBrands.includes(brand) ? true : false}
                               id={`brandCheckbox-${index}`}
                               name={`brandCheckbox-${brand}`}
-                              onChange={(e) => addToFilter(e, 'brand', brand)} />
+                              onChange={(e) => {
+                                addToFilter(e, 'brand', brand);
+                              }}
+                            />
                             <label className='form-check-label fs-5 p-1' htmlFor={`brandCheckbox-${index}`}>
                               {brand}
                             </label>
@@ -147,6 +161,7 @@ const Home = () => {
                       </div>
                     </div>
                   </li>
+
                   <li className='list-group-item'>
                     <span className='p-2 fs-3'
                       data-bs-toggle='collapse'
@@ -155,9 +170,12 @@ const Home = () => {
                       aria-controls='categoryCollapse'
                     >
                       Categories <i class="bi bi-chevron-down"></i>
+                      {appliedCategories.length > 0 ? (
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1">{appliedCategories.length}</span>
+                      ) : null}
                     </span>
                     <div className='collapse' id='categoryCollapse'>
-                    <div className=' card-body '>
+                      <div className=' card-body '>
                         {categories.map((category, index) => (
                           <div className='form-check' key={index}>
                             <input className='form-check-input'
@@ -181,10 +199,12 @@ const Home = () => {
                       aria-expanded='false'
                       aria-controls='colorCollapse'
                     >
-                      Colors <i class="bi bi-chevron-down"></i>
+                      Colors <i class="bi bi-chevron-down"></i>{appliedColors.length > 0 ? (
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1">{appliedColors.length}</span>
+                      ) : null}
                     </span>
                     <div className='collapse' id='colorCollapse'>
-                    <div className=' card-body '>
+                      <div className=' card-body '>
                         {colors.map((color, index) => (
                           <div className='form-check' key={index}>
                             <input className='form-check-input'
@@ -207,10 +227,12 @@ const Home = () => {
                       aria-expanded='false'
                       aria-controls='genderCollapse'
                     >
-                      Genders <i class="bi bi-chevron-down"></i>
+                      Genders <i class="bi bi-chevron-down"></i>{appliedGenders.length > 0 ? (
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1">{appliedGenders.length}</span>
+                      ) : null}
                     </span>
                     <div className='collapse' id='genderCollapse'>
-                    <div className=' card-body '>
+                      <div className=' card-body '>
                         {genders.map((gender, index) => (
                           <div className='form-check' key={index}>
                             <input className='form-check-input'
