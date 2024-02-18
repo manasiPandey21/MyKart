@@ -24,7 +24,6 @@ const Home = () => {
   const [genderCollapseOpen, setGenderCollapseOpen] = useState(appliedGenders.length > 0);
 
   useEffect(() => {
-    console.log(appliedBrands)
     filteredProducts = PData;
     if (appliedBrands.length) filteredProducts = filteredProducts.filter((product) => appliedBrands.includes(product.brand))
     if (appliedCategories.length) filteredProducts = filteredProducts.filter((product) => appliedCategories.includes(product.category))
@@ -204,7 +203,7 @@ const Home = () => {
                             <input className='form-check-input'
                               type='checkbox'
                               value={category}
-                              defaultChecked={appliedCategories.includes(category) ? true : false}
+                              checked={appliedCategories.includes(category) ? true : false}
                               id={`categoryCheckbox-${index}`}
                               onChange={(e) => addToFilter(e, 'category', category)} />
                             <label className='form-check-label fs-5 p-1' htmlFor={`categoryCheckbox-${index}`}>
@@ -234,7 +233,7 @@ const Home = () => {
                             <input className='form-check-input'
                               type='checkbox'
                               value={color}
-                              defaultChecked={appliedColors.includes(color) ? true : false}
+                              checked={appliedColors.includes(color) ? true : false}
                               id={`colorCheckbox-${index}`} onChange={(e) => addToFilter(e, 'color', color)} />
                             <label className='form-check-label fs-5 p-1' htmlFor={`colorCheckbox-${index}`}>
                               {color}
@@ -263,7 +262,7 @@ const Home = () => {
                             <input className='form-check-input'
                               type='checkbox'
                               value={gender}
-                              defaultChecked={appliedGenders.includes(gender) ? true : false}
+                              checked={appliedGenders.includes(gender) ? true : false}
                               id={`genderCheckbox-${index}`} onChange={(e) => addToFilter(e, 'gender', gender)} />
                             <label className='form-check-label fs-5 p-1' htmlFor={`genderCheckbox-${index}`}>
                               {gender}
