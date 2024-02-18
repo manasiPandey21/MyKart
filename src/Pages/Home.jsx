@@ -18,15 +18,15 @@ const Home = () => {
   let appliedColors = filtersInSessionStorage?.colors || [];
   let appliedGenders = filtersInSessionStorage?.gender || [];
   let [filteredProducts, setFilteredProducts] = useState(PData);
-
-  useEffect(() => {
+ 
+    useEffect(() => {
     filteredProducts = PData;
     if (appliedBrands.length) filteredProducts = filteredProducts.filter((product) => appliedBrands.includes(product.brand))
     if (appliedCategories.length) filteredProducts = filteredProducts.filter((product) => appliedCategories.includes(product.category))
     if (appliedColors.length) filteredProducts = filteredProducts.filter((product) => appliedColors.includes(product.color))
     if (appliedGenders.length) filteredProducts = filteredProducts.filter((product) => appliedGenders.includes(product.gender))
     setFilteredProducts(filteredProducts);
-  }, [])
+      }, [])
 
 
   let addToFilter = (e, type, val) => {
@@ -80,7 +80,7 @@ const Home = () => {
       }
     }
 
-    let tempProducts=PData;
+    let tempProducts = PData;
 
     if (appliedBrands.length) {
       tempProducts = tempProducts.filter((product) => appliedBrands.includes(product.brand))
@@ -134,8 +134,8 @@ const Home = () => {
                       aria-controls='brandCollapse'
                     >
                       Brands <i className="bi bi-chevron-down"></i>
-                      {appliedBrands.length >=1 ? (
-                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1">{appliedBrands.length}</span>
+                      {appliedBrands.length >= 1 ? (
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1 mx-2">{appliedBrands.length}</span>
                       ) : null}
                     </span>
                     <div className='collapse' id='brandCollapse'>
@@ -171,7 +171,7 @@ const Home = () => {
                     >
                       Categories <i class="bi bi-chevron-down"></i>
                       {appliedCategories.length > 0 ? (
-                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1">{appliedCategories.length}</span>
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1 mx-2">{appliedCategories.length}</span>
                       ) : null}
                     </span>
                     <div className='collapse' id='categoryCollapse'>
@@ -200,7 +200,7 @@ const Home = () => {
                       aria-controls='colorCollapse'
                     >
                       Colors <i class="bi bi-chevron-down"></i>{appliedColors.length > 0 ? (
-                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1">{appliedColors.length}</span>
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1 mx-2">{appliedColors.length}</span>
                       ) : null}
                     </span>
                     <div className='collapse' id='colorCollapse'>
@@ -228,7 +228,7 @@ const Home = () => {
                       aria-controls='genderCollapse'
                     >
                       Genders <i class="bi bi-chevron-down"></i>{appliedGenders.length > 0 ? (
-                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1">{appliedGenders.length}</span>
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1 mx-2">{appliedGenders.length}</span>
                       ) : null}
                     </span>
                     <div className='collapse' id='genderCollapse'>
