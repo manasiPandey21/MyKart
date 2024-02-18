@@ -13,10 +13,10 @@ const Home = () => {
   let genders = [...new Set(PData.map((Val) => Val.gender))];
 
   let filtersInSessionStorage = JSON.parse(sessionStorage.getItem('filters'));
-  let appliedBrands = filtersInSessionStorage?.brands || [];
-  let appliedCategories = filtersInSessionStorage?.categories || [];
-  let appliedColors = filtersInSessionStorage?.colors || [];
-  let appliedGenders = filtersInSessionStorage?.gender || [];
+  let [appliedBrands, setAppliedbrands] = useState(filtersInSessionStorage?.brands || []);
+  let [appliedCategories, setAppliedCategories] = useState(filtersInSessionStorage?.categories || []);
+  let [appliedColors, setAppliedColors] = useState(filtersInSessionStorage?.colors || []);
+  let [appliedGenders, setAppliedGenders] = useState(filtersInSessionStorage?.genders || []);
   let [filteredProducts, setFilteredProducts] = useState(PData);
   const [brandCollapseOpen, setBrandCollapseOpen] = useState(appliedBrands.length > 0);
   const [categoryCollapseOpen, setCategoryCollapseOpen] = useState(appliedCategories.length > 0);
@@ -24,6 +24,7 @@ const Home = () => {
   const [genderCollapseOpen, setGenderCollapseOpen] = useState(appliedGenders.length > 0);
 
   useEffect(() => {
+    console.log(appliedBrands)
     filteredProducts = PData;
     if (appliedBrands.length) filteredProducts = filteredProducts.filter((product) => appliedBrands.includes(product.brand))
     if (appliedCategories.length) filteredProducts = filteredProducts.filter((product) => appliedCategories.includes(product.category))
@@ -32,30 +33,43 @@ const Home = () => {
     setFilteredProducts(filteredProducts);
   }, [])
 
+  let resetItems = () => {
+    setFilteredProducts(PData);
+    setAppliedbrands([]);
+    setAppliedCategories([]);
+    setAppliedColors([]);
+    setAppliedGenders([]);
+    sessionStorage.setItem('filters',JSON.stringify({}));
+  }
+
 
   let addToFilter = (e, type, val) => {
     let filtersInSessionStorage = JSON.parse(sessionStorage.getItem('filters'));
-    appliedBrands = filtersInSessionStorage?.brands || [];
-    appliedCategories = filtersInSessionStorage?.categories || [];
-    appliedColors = filtersInSessionStorage?.colors || [];
-    appliedGenders = filtersInSessionStorage?.gender || [];
+    setAppliedbrands(filtersInSessionStorage?.brands || []);
+    setAppliedCategories(filtersInSessionStorage?.categories || []);
+    setAppliedColors(filtersInSessionStorage?.colors || []);
+    setAppliedGenders(filtersInSessionStorage?.gender || []);
 
     if (e.target.checked) {
       switch (type) {
         case 'brand':
-          appliedBrands.push(val)
+          appliedBrands.push(val);
+          setAppliedbrands(appliedBrands)
           break;
 
         case 'category':
           appliedCategories.push(val)
+          setAppliedCategories(appliedCategories)
           break;
 
         case 'color':
           appliedColors.push(val)
+          setAppliedColors(appliedColors)
           break;
 
         case 'gender':
           appliedGenders.push(val)
+          setAppliedGenders(appliedGenders)
           break;
 
         default:
@@ -64,26 +78,30 @@ const Home = () => {
     } else {
       switch (type) {
         case 'brand':
-          appliedBrands = appliedBrands.filter((brand) => brand !== val)
+          appliedBrands=appliedBrands.filter((brand) => brand !== val);
+          setAppliedbrands(appliedBrands);
           break;
 
         case 'category':
-          appliedCategories = appliedCategories.filter((categories) => categories !== val)
+          appliedCategories=appliedCategories.filter((categories) => categories !== val);
+          setAppliedCategories(appliedCategories);
           break;
 
         case 'color':
-          appliedColors = appliedColors.filter((colors) => colors !== val)
+          appliedColors=appliedColors.filter((colors) => colors !== val);
+          setAppliedColors(appliedColors);
           break;
 
         case 'gender':
-          appliedGenders = appliedGenders.filter((genders) => genders !== val)
+          appliedGenders=appliedGenders.filter((genders) => genders !== val);
+          setAppliedGenders(appliedGenders)
           break;
 
         default:
           break;
       }
     }
-
+    console.log(appliedBrands)
     let tempProducts = PData;
 
     if (appliedBrands.length) {
@@ -100,7 +118,7 @@ const Home = () => {
       tempProducts = tempProducts.filter((product) => appliedGenders.includes(product.gender))
     }
     setFilteredProducts(tempProducts);
-    console.log(filteredProducts);
+    console.log(appliedBrands)
 
     let filters = {
       brands: appliedBrands,
@@ -127,7 +145,7 @@ const Home = () => {
               <div className='card border-0 shadow-sm' style={{ width: '23rem', maxHeight: '670px', overflowY: 'auto', scrollbarWidth: 'thin', scrollbarColor: 'transparent transparent' }}>
                 <ul className='list-group list-group-flush'>
                   <li className='list-group-item fs-2 fw-semibold d-flex align-items-center'>Filters {appliedBrands.length > 0 || appliedColors.length > 0 || appliedGenders.length > 0 || appliedCategories.length > 0 ? (
-                    <button type="button" class="btn btn-outline-dark px-3 ms-auto py-0 fs-4" onClick={() => setFilteredProducts(PData)}>Reset</button>
+                    <button type="button" class="btn btn-outline-dark px-3 ms-auto py-0 fs-4" onClick={() => resetItems()}>Reset</button>
                   ) : null}</li>
                   <li className='list-group-item'>
                     <span
@@ -151,7 +169,7 @@ const Home = () => {
                               className='form-check-input'
                               type='checkbox'
                               value={brand}
-                              defaultChecked={appliedBrands.includes(brand) ? true : false}
+                              checked={appliedBrands.includes(brand) ? true : false}
                               id={`brandCheckbox-${index}`}
                               name={`brandCheckbox-${brand}`}
                               onChange={(e) => {
@@ -166,7 +184,6 @@ const Home = () => {
                       </div>
                     </div>
                   </li>
-
                   <li className='list-group-item'>
                     <span className='p-2 fs-3'
                       data-bs-toggle='collapse'
