@@ -54,6 +54,26 @@ const SingleProduct = (props) => {
     localStorage.setItem('cart', JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
   }
+  const removeItemFromCartModal = () => (
+    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title fs-1" id="exampleModalLabel">Confirm remove item</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div className="modal-body fs-3">
+            Product will be removed from the cart. Are you sure?
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary fs-4 px-3" data-bs-dismiss="modal">No</button>
+            <button type="button" className="btn btn-success fs-4 px-3" data-bs-dismiss="modal" onClick={() => removeItem()}>Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
 
   return (
     <div className='container py-5 center m-md-5 my-5 '>
@@ -100,7 +120,8 @@ const SingleProduct = (props) => {
                     <a onClick={() => incNum()}><i className="bi bi-plus-lg m-2 py-3 align-middle"></i></a>
                   </span>
 
-                  <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => removeItem()}><i className="bi bi-trash"></i> Remove</button>
+                  {removeItemFromCartModal()}
+                  <button type="button" className="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"><i className="bi bi-trash"></i> Remove</button>
                 </div>
               ) : (
                 <button type="button" className="btn btn-outline-success btn-lg " onClick={() => addToCart()}>Add to Cart</button>

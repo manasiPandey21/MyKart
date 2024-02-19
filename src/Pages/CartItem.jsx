@@ -52,6 +52,25 @@ const CartItem = (props) => {
         window.dispatchEvent(new Event("storage"));
 
     }
+    const removeItemModal = () => (
+        <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title fs-1" id="exampleModalLabel2">Confirm clear cart</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body fs-3">
+                        The product will be removed from the cart. Are you sure?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary fs-4 px-3" data-bs-dismiss="modal">No</button>
+                        <button type="button" className="btn btn-success fs-4 px-3" data-bs-dismiss="modal" onClick={() => removeItem()}>Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 
     return (
         quantity ? (
@@ -78,7 +97,8 @@ const CartItem = (props) => {
                                 <span className='fs-3 fw-medium text-success py-5 my-3 align-middle'>{quantity}</span>
                                 <a onClick={() => incNum()}><i className="bi bi-plus-lg m-3 py-4 align-middle"></i></a>
                             </span>
-                            <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => removeItem()}><i className="bi bi-trash"></i> Remove</button>
+                            {removeItemModal()}
+                            <button type="button" className="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal2"><i className="bi bi-trash"></i>Remove</button>
                         </div>
                     </div>
                 </div>
