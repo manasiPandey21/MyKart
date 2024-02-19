@@ -74,13 +74,44 @@ const SingleProduct = (props) => {
     </div>
   );
 
-
   return (
     <div className='container py-5 center m-md-5 my-5 '>
       <div className="row py-4 justify-content-center my-5">
-        <div className="col-12 col-md-3  my-auto ">
-          <img src={product.searchImage} className="img-fluid rounded img-thumbnail border-0 mx-auto" alt={props.name} />
+        <div className="col-12 col-md-3 my-auto">
+          <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+            <div className="carousel-indicators">
+              {product.images && product.images.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to={index}
+                  className={index === 0 ? "active" : ""}
+                  aria-current={index === 0 ? "true" : undefined}
+                  aria-label={`Slide ${index + 1}`}
+                ></button>
+              ))}
+            </div>
+            <div className="carousel-inner">
+              {product.images && product.images.map((pic, index) => (
+                <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
+                  <img src={pic.src} className="d-block w-100" alt={product.name} />
+                </div>
+              ))}
+            </div>
+            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
         </div>
+
+
+
         <div className="col-12 col-md-7 px-4 my-auto ">
           <h5 className="card-title fw-300 fs-1">{product.name}</h5>
           <p className="card-text fs-2 fw-light">{product.additionalInfo}</p>
