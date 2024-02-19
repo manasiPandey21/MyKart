@@ -9,7 +9,7 @@ import Footer from './Pages/Footer.jsx';
 import Navbar from './navbar/Navbar.jsx';
 import Login from './Pages/Login.jsx';
 import Sort from './Pages/sort.jsx';
-import Carousel from './Pages/carousel.jsx';
+
 const App = () => {
   return (
     <>
@@ -21,7 +21,6 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sort" element={<Sort/>}/>
-          <Route path="/c" element={<Carousel />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
