@@ -27,7 +27,7 @@ const CartItem = (props) => {
         props.orderSummary();
         window.dispatchEvent(new Event("storage"));
     }
-
+    
     const decNum = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
