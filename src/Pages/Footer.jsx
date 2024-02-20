@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import "../App.css"
 
 const Footer = () => {
-   
+    const [formattedDate, setFormattedDate] = useState(getFormattedDate());
 
-const timestamp = Date.now();
-const currentDate = new Date(timestamp); 
-const formattedDate = currentDate.toLocaleString();
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setFormattedDate(getFormattedDate());
+        }, 1000); 
+
+        return () => clearInterval(intervalId); 
+    }, []);
+
+    function getFormattedDate() {
+        const timestamp = Date.now();
+        const currentDate = new Date(timestamp);
+        return currentDate.toLocaleString();
+    }
 
     return (
         <footer className="footer shadow-sm h4 w-100 bg-light text-center footer">
@@ -17,6 +27,3 @@ const formattedDate = currentDate.toLocaleString();
 }
 
 export default Footer;
-
-
-

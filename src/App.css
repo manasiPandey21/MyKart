@@ -36,6 +36,9 @@
     transform: rotate(360deg);
   }
 }
+.pointer {
+  cursor: pointer;
+}
 
 .footer {
   margin-top: auto; /* This will push the footer to the bottom */

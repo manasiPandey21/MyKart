@@ -27,7 +27,7 @@ const Cart = () => {
 
       orderValueTemp += pdata.mrp * quantity;
       totalamountTemp += pdata.price * quantity;
-      discountTemp = (totalamount - orderValue);
+      discountTemp = Math.abs(totalamount - orderValue);
     });
 
     setOrderValue(orderValueTemp);
@@ -69,7 +69,7 @@ const Cart = () => {
       <div className="container mt-5">
         <div className="row mt-5  pt-5">
           <div className="col-md-8">
-            <div className="card py-2">
+            <div className="card ">
               <div className="card-header d-flex justify-content-between align-items-center">
                 <span className="fs-1">Your Cart</span>
                 {removeAllModal()}
@@ -87,14 +87,27 @@ const Cart = () => {
               </div>
               <div className="card-body">
                 <div className='p-3'>
-                  <p className="card-text fs-3 mt-4 d-flex justify-content-between align-items-center">Order value <span>{orderValue}</span></p>
-                  <p className="card-text fs-3 d-flex justify-content-between align-items-center text-success">Discount <span></span>{discount}</p>
-                  <p className="card-text fs-3 d-flex justify-content-between align-items-center">Shipping Price <span><span className='product-mrp text-muted ml-2 fw-light fs-3'><s>₹199</s></span> <span className='text-success'>FREE</span></span></p>
+                  <p className="card-text fs-3 mt-4 d-flex justify-content-between align-items-center">Order value <span>₹{orderValue}</span></p>
+                  <p className="card-text fs-3 d-flex justify-content-between align-items-center text-success">Discount <span></span>-₹{discount}</p>
+
+                  {
+                    orderValue >= '5000' ? (
+                      <p className="card-text fs-3 d-flex justify-content-between align-items-center">Shipping Price <span>
+                        <span className='product-mrp text-muted ml-2 fw-light fs-3'><s>₹199</s></span>
+                        <span className='text-success'>FREE</span>
+                      </span></p>
+                    ) : (
+                      <div>
+                        <p className="card-text fs-3 d-flex justify-content-between align-items-center">Shipping Price <span className='product-mrp ml-2 fw-light fs-3'>₹199</span></p>
+                        <div className='text-success fs-3'>Add items worth ₹{5000 - orderValue} more to get free delivery on this order.</div>
+                      </div>
+                    )
+                  }
                 </div>
                 <br />
                 <hr />
                 <br />
-                <p className="card-text fw-bold fs-3 p-3 d-flex justify-content-between align-items-center">Total Amount <span>{totalamount}</span></p>
+                <p className="card-text fw-bold fs-3 p-3 d-flex justify-content-between align-items-center">Total Amount <span>₹{totalamount}</span></p>
                 <a href="#" className="btn btn-success w-100 p-3 fs-4">Login to place Order</a>
               </div>
             </div>

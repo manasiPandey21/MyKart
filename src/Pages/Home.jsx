@@ -148,7 +148,7 @@ const Home = () => {
                   ) : null}</li>
                   <li className='list-group-item'>
                     <span
-                      className='p-1 fs-3'
+                      className='p-1 fs-3 pointer'
                       data-bs-toggle='collapse'
                       data-bs-target='#brandCollapse'
                       aria-expanded={brandCollapseOpen ? 'true' : 'false'}
@@ -165,7 +165,7 @@ const Home = () => {
                         {brands.map((brand, index) => (
                           <div className='form-check' key={index}>
                             <input
-                              className='form-check-input'
+                              className='form-check-input pointer'
                               type='checkbox'
                               value={brand}
                               checked={appliedBrands.includes(brand) ? true : false}
@@ -184,7 +184,7 @@ const Home = () => {
                     </div>
                   </li>
                   <li className='list-group-item'>
-                    <span className='p-2 fs-3'
+                    <span className='p-2 fs-3 pointer'
                       data-bs-toggle='collapse'
                       data-bs-target='#categoryCollapse'
                       aria-controls='categoryCollapse'
@@ -200,7 +200,7 @@ const Home = () => {
                       <div className=' card-body '>
                         {categories.map((category, index) => (
                           <div className='form-check' key={index}>
-                            <input className='form-check-input'
+                            <input className='form-check-input pointer'
                               type='checkbox'
                               value={category}
                               checked={appliedCategories.includes(category) ? true : false}
@@ -215,7 +215,7 @@ const Home = () => {
                     </div>
                   </li>
                   <li className='list-group-item'>
-                    <span className='p-2 fs-3'
+                    <span className='p-2 fs-3 pointer'
                       data-bs-toggle='collapse'
                       data-bs-target='#colorCollapse'
                       aria-controls='colorCollapse'
@@ -230,7 +230,7 @@ const Home = () => {
                       <div className=' card-body '>
                         {colors.map((color, index) => (
                           <div className='form-check' key={index}>
-                            <input className='form-check-input'
+                            <input className='form-check-input pointer'
                               type='checkbox'
                               value={color}
                               checked={appliedColors.includes(color) ? true : false}
@@ -244,7 +244,7 @@ const Home = () => {
                     </div>
                   </li>
                   <li className='list-group-item'>
-                    <span className='p-2 fs-3'
+                    <span className='p-2 fs-3 pointer'
                       data-bs-toggle='collapse'
                       data-bs-target='#genderCollapse'
                       aria-controls='genderCollapse'
@@ -259,7 +259,7 @@ const Home = () => {
                       <div className=' card-body '>
                         {genders.map((gender, index) => (
                           <div className='form-check' key={index}>
-                            <input className='form-check-input'
+                            <input className='form-check-input pointer'
                               type='checkbox'
                               value={gender}
                               checked={appliedGenders.includes(gender) ? true : false}

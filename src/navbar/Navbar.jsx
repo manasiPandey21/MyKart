@@ -40,9 +40,6 @@ const Navbar = () => {
                             </span>
                         </a>
                     </li>
-                    <li className="nav-item mx-3">
-                        <i className="bi bi-upload  h3"></i>
-                    </li>
                     <li className="nav-item ms-3 me-4">
                         <a href="./login"><i className="bi bi-box-arrow-in-right h2 text-body"></i></a>
                     </li>
