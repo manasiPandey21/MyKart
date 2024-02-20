@@ -280,7 +280,7 @@ const Home = () => {
             <div className='row gy-4'>
               {
                 filteredProducts.length > 0 ? (
-                  <div className='col-11 mx-auto'>
+                  <div className='col-12 mx-auto '>
                     <div className='row gy-4'>
                       {filteredProducts.map((val, ind) => (
                         <Card
@@ -293,6 +293,7 @@ const Home = () => {
                           barcode={val.barcode}
                           rating={(val.rating).toFixed(1)}
                           reviews={val.reviews}
+                          images={val.images}
                         />
                       ))}
                     </div>

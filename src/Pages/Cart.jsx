@@ -49,15 +49,15 @@ const Cart = () => {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title fs-1" id="exampleModalLabel1">Confirm clear cart</h5>
+            <h5 className="modal-title fs-1" id="exampleModalLabel1">Confirm</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body fs-3">
             All products will be removed from the cart. Are you sure?
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary fs-4 px-3" data-bs-dismiss="modal">No</button>
-            <button type="button" className="btn btn-success fs-4 px-3" data-bs-dismiss="modal" onClick={() => removeAll()}>Yes</button>
+            <button type="button" className="btn btn-outline-secondary fs-4 px-3" data-bs-dismiss="modal">No</button>
+            <button type="button" className="btn btn-outline-danger fs-4 px-3" data-bs-dismiss="modal" onClick={() => removeAll()}>Yes</button>
           </div>
         </div>
       </div>
