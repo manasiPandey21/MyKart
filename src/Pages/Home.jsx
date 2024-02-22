@@ -21,35 +21,38 @@ const Home = () => {
   const [categoryCollapseOpen, setCategoryCollapseOpen] = useState(appliedCategories.length > 0);
   const [colorCollapseOpen, setColorCollapseOpen] = useState(appliedColors.length > 0);
   const [genderCollapseOpen, setGenderCollapseOpen] = useState(appliedGenders.length > 0);
-  
+
   const handleSortChange = (option) => {
-    // setSelectedOption(option);
-    let sortedProducts = [...filteredProducts];
-    switch (option) {
-      case 'Price - Low to High':
-        sortedProducts.sort((a, b) => a.price - b.price);
-        setFilteredProducts(sortedProducts);
-        break;
-      case 'Price - High to Low':
-        sortedProducts.sort((a, b) => b.price - a.price);
-        setFilteredProducts(sortedProducts);
-        break;
-      case 'Ratings':
-        sortedProducts.sort((a, b) => b.rating - a.rating);
-        setFilteredProducts(sortedProducts);
-        break;
-      default:
-        break;
-    }
+    setSelectedOption(option);
   };
 
   useEffect(() => {
-    filteredProducts = PData;
-    if (appliedBrands.length) filteredProducts = filteredProducts.filter((product) => appliedBrands.includes(product.brand))
-    if (appliedCategories.length) filteredProducts = filteredProducts.filter((product) => appliedCategories.includes(product.category))
-    if (appliedColors.length) filteredProducts = filteredProducts.filter((product) => appliedColors.includes(product.color))
-    if (appliedGenders.length) filteredProducts = filteredProducts.filter((product) => appliedGenders.includes(product.gender))
-    setFilteredProducts(filteredProducts);
+    let tempProducts = PData;
+
+    if (appliedBrands.length) {
+      tempProducts = tempProducts.filter((product) => appliedBrands.includes(product.brand));
+    }
+    if (appliedCategories.length) {
+      tempProducts = tempProducts.filter((product) => appliedCategories.includes(product.category));
+    }
+    if (appliedColors.length) {
+      tempProducts = tempProducts.filter((product) => appliedColors.includes(product.color));
+    }
+    if (appliedGenders.length) {
+      tempProducts = tempProducts.filter((product) => appliedGenders.includes(product.gender));
+    }
+    setFilteredProducts((prevFilteredProducts) => {
+      switch (selectedOption) {
+        case 'Price - Low to High':
+          return [...tempProducts].sort((a, b) => a.price - b.price);
+        case 'Price - High to Low':
+          return [...tempProducts].sort((a, b) => b.price - a.price);
+        case 'Ratings':
+          return [...tempProducts].sort((a, b) => b.rating - a.rating);
+        default:
+          return [...tempProducts];
+      }
+    });
   }, [appliedBrands, appliedCategories, appliedColors, appliedGenders, selectedOption]);
 
   let resetItems = () => {
@@ -147,6 +150,15 @@ const Home = () => {
     };
     sessionStorage.setItem('filters', JSON.stringify(filters));
   }
+  const [sortButtonHovered, setSortButtonHovered] = useState(false);
+
+  const handleSortButtonHover = () => {
+    setSortButtonHovered(true);
+  };
+
+  const handleSortButtonLeave = () => {
+    setSortButtonHovered(false);
+  };
   return (
     <>
       <div className='my-5'></div>
@@ -154,15 +166,25 @@ const Home = () => {
         <div className='row'>
           <div className='col-12 d-flex justify-content-end px-4 py-2'>
             <div>
-              <div className="dropdown">
-                <button className="btn btn-secondary dropdown-toggle fs-4" type="button" id="dropdownMenuButton1" onClick={()=>setSelectedOption(selectedOption)} data-bs-toggle="dropdown" aria-expanded="false">
-                  Sort By - {selectedOption} 
+              <div className="dropdown" onMouseEnter={handleSortButtonHover} onMouseLeave={handleSortButtonLeave}>
+                <button
+                  className={`btn btn-transparent dropdown-toggle shadow-sm fs-4 ${sortButtonHovered ? 'text-white' : 'text-black'}` }
+                  type='button'
+                  id='dropdownMenuButton1'
+                  data-bs-toggle='dropdown'
+                  aria-expanded='false'
+                  style={{
+                    backgroundColor: sortButtonHovered ? 'black' : '',
+                    color: sortButtonHovered ? 'white' : 'black',
+                  }}
+                >
+                  <span className={`fw-bold`}>Sort By -</span> {selectedOption}
                 </button>
                 <ul className="dropdown-menu fs-4" aria-labelledby="dropdownMenuButton1">
                   <li>
                     <a
                       className={`dropdown-item ${selectedOption === 'Price - Low to High' ? 'selected' : ''}`}
-                      href="#" 
+                      href="#"
                       onClick={() => handleSortChange('Price - Low to High')}
                     >
                       Price - Low to High
