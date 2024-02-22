@@ -93,7 +93,7 @@ const CartItem = (props) => {
                             <h4 className="fw-mz fs-3">₹{product.price} <span className="product-mrp text-muted ml-2 fw-light fs-3"><s>₹{product.mrp}</s></span><span className="fw-300 text-success fs-3"> {product.discountDisplayLabel}</span></h4>
                         </div>
                         <div>
-                            <span className='btnx border border-success py-2 my-5 mx-4 rounded  align-content-end'>
+                            <span className='btnx border border-success py-2 my-3 me-3 rounded  align-content-end'>
                                 <a onClick={() => decNum()}><i className="bi bi-dash-lg m-3 py-4  align-middle"></i></a>
                                 <span className='fs-3 fw-medium text-success py-5 my-3 align-middle'>{quantity}</span>
                                 <a onClick={() => incNum()}><i className="bi bi-plus-lg m-3 py-4 align-middle"></i></a>
