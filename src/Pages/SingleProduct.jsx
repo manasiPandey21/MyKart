@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import PData from '../data/products';
 
 const SingleProduct = (props) => {
@@ -54,6 +54,7 @@ const SingleProduct = (props) => {
     localStorage.setItem('cart', JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
   }
+
   const removeItemFromCartModal = () => (
     <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog">
@@ -109,9 +110,6 @@ const SingleProduct = (props) => {
             </button>
           </div>
         </div>
-
-
-
         <div className="col-12 col-md-7 px-4 my-auto ">
           <h5 className="card-title fw-300 fs-1">{product.name}</h5>
           <p className="card-text fs-2 fw-light">{product.additionalInfo}</p>
@@ -133,7 +131,6 @@ const SingleProduct = (props) => {
             )}
           </div>
           <ul className="mt-3 pl-4 fs-3">
-
             <li><span className='fw-bold'>•</span> 100% Original Products</li>
             <li><span className='fw-bold'>•</span> Pay on delivery might be available</li>
             <li><span className='fw-bold'>•</span> Easy 14 days returns and exchanges</li>

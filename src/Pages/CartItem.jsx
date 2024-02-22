@@ -52,6 +52,7 @@ const CartItem = (props) => {
         window.dispatchEvent(new Event("storage"));
 
     }
+    
     const removeItemModal = () => (
         <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
             <div className="modal-dialog">

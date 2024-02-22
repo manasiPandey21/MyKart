@@ -29,7 +29,6 @@ const Cart = () => {
       totalamountTemp += pdata.price * quantity;
       discountTemp = Math.abs(totalamount - orderValue);
     });
-
     setOrderValue(orderValueTemp);
     setTotalAmount(totalamountTemp);
     setDiscount(discountTemp);
@@ -44,6 +43,7 @@ const Cart = () => {
     setDiscount(0);
     window.dispatchEvent(new Event("storage"));
   }
+
   const removeAllModal = () => (
     <div className="modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
       <div className="modal-dialog">

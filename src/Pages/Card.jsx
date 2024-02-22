@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 const Card = (props) => {
     const [quantity, setQuantity] = useState(0);

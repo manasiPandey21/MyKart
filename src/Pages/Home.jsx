@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import PData from '../data/products';
-import Sort from './sort';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -11,7 +10,7 @@ const Home = () => {
   let categories = [...new Set(PData.map((Val) => Val.category))];
   let colors = [...new Set(PData.map((Val) => Val.color))];
   let genders = [...new Set(PData.map((Val) => Val.gender))];
-
+  const [selectedOption, setSelectedOption] = useState('Ratings');
   let filtersInSessionStorage = JSON.parse(sessionStorage.getItem('filters'));
   let [appliedBrands, setAppliedbrands] = useState(filtersInSessionStorage?.brands || []);
   let [appliedCategories, setAppliedCategories] = useState(filtersInSessionStorage?.categories || []);
@@ -22,6 +21,27 @@ const Home = () => {
   const [categoryCollapseOpen, setCategoryCollapseOpen] = useState(appliedCategories.length > 0);
   const [colorCollapseOpen, setColorCollapseOpen] = useState(appliedColors.length > 0);
   const [genderCollapseOpen, setGenderCollapseOpen] = useState(appliedGenders.length > 0);
+  
+  const handleSortChange = (option) => {
+    // setSelectedOption(option);
+    let sortedProducts = [...filteredProducts];
+    switch (option) {
+      case 'Price - Low to High':
+        sortedProducts.sort((a, b) => a.price - b.price);
+        setFilteredProducts(sortedProducts);
+        break;
+      case 'Price - High to Low':
+        sortedProducts.sort((a, b) => b.price - a.price);
+        setFilteredProducts(sortedProducts);
+        break;
+      case 'Ratings':
+        sortedProducts.sort((a, b) => b.rating - a.rating);
+        setFilteredProducts(sortedProducts);
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     filteredProducts = PData;
@@ -30,7 +50,7 @@ const Home = () => {
     if (appliedColors.length) filteredProducts = filteredProducts.filter((product) => appliedColors.includes(product.color))
     if (appliedGenders.length) filteredProducts = filteredProducts.filter((product) => appliedGenders.includes(product.gender))
     setFilteredProducts(filteredProducts);
-  }, [])
+  }, [appliedBrands, appliedCategories, appliedColors, appliedGenders, selectedOption]);
 
   let resetItems = () => {
     setFilteredProducts(PData);
@@ -134,7 +154,40 @@ const Home = () => {
         <div className='row'>
           <div className='col-12 d-flex justify-content-end px-4 py-2'>
             <div>
-              <Sort />
+              <div className="dropdown">
+                <button className="btn btn-secondary dropdown-toggle fs-4" type="button" id="dropdownMenuButton1" onClick={()=>setSelectedOption(selectedOption)} data-bs-toggle="dropdown" aria-expanded="false">
+                  Sort By - {selectedOption} 
+                </button>
+                <ul className="dropdown-menu fs-4" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a
+                      className={`dropdown-item ${selectedOption === 'Price - Low to High' ? 'selected' : ''}`}
+                      href="#" 
+                      onClick={() => handleSortChange('Price - Low to High')}
+                    >
+                      Price - Low to High
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className={`dropdown-item ${selectedOption === 'Price - High to Low' ? 'selected' : ''}`}
+                      href="#"
+                      onClick={() => handleSortChange('Price - High to Low')}
+                    >
+                      Price - High to Low
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className={`dropdown-item ${selectedOption === 'Ratings' ? 'selected' : ''}`}
+                      href="#"
+                      onClick={() => handleSortChange('Ratings')}
+                    >
+                      Ratings
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
