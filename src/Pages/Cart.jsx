@@ -3,6 +3,8 @@ import CartItem from './CartItem';
 import { useState } from 'react';
 import PData from '../data/products';
 import EmptyPage from "./EmptyPage"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Cart = () => {
   let [orderValue, setOrderValue] = useState(0);
@@ -42,7 +44,21 @@ const Cart = () => {
     setTotalAmount(0);
     setDiscount(0);
     window.dispatchEvent(new Event("storage"));
+    notifyD();
   }
+
+  const notifyD = () => toast.success("Cart cleared successfully", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+
+    },
+    );
 
   const removeAllModal = () => (
     <div className="modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">

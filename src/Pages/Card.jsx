@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Card = (props) => {
     const [quantity, setQuantity] = useState(0);
@@ -14,6 +16,18 @@ const Card = (props) => {
     const handleMouseOut = () => {
         setIsHovering(false);
     };
+
+    const notifyA = () => toast.success(`${props.name} added to cart`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        containerId: props.barcode
+        });
 
     useEffect(() => {
         cart = JSON.parse(localStorage.getItem('cart'));
@@ -30,6 +44,7 @@ const Card = (props) => {
         if (parseInt(cart[props.barcode]) >= 1) setQuantity(parseInt(cart[props.barcode]));
         else setQuantity(0);
         window.dispatchEvent(new Event("storage"));
+        notifyA();
     }
 
     const incNum = () => {
@@ -98,6 +113,7 @@ const Card = (props) => {
                     </div>
                 </div>
             </div>
+            <ToastContainer containerId={props.barcode} position="top-right" />
         </div>
     );
 }

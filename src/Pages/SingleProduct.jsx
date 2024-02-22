@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import PData from '../data/products';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SingleProduct = (props) => {
   const search = useLocation().search;
@@ -26,6 +28,7 @@ const SingleProduct = (props) => {
     if (parseInt(cart[barcode]) >= 1) setQuantity(parseInt(cart[barcode]));
     else setQuantity(0);
     window.dispatchEvent(new Event("storage"));
+    notifyA();
   }
 
   const incNum = () => {
@@ -53,7 +56,32 @@ const SingleProduct = (props) => {
     cart[barcode] = 0;
     localStorage.setItem('cart', JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
+    notifyB();
   }
+
+  const notifyA = () => toast.success(`${product.name} added to cart`, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    },
+    );
+
+    const notifyB = () => toast.error(`${product.name} removed from the cart`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      },
+      );
 
   const removeItemFromCartModal = () => (
     <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -158,6 +186,7 @@ const SingleProduct = (props) => {
           </div>
         </div>
       </div>
+      <ToastContainer position="top-right" />
     </div>
   );
 }

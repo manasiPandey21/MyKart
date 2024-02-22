@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PData from '../data/products';
 import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const CartItem = (props) => {
@@ -50,9 +52,22 @@ const CartItem = (props) => {
         localStorage.setItem('cart', JSON.stringify(cart));
         props.orderSummary();
         window.dispatchEvent(new Event("storage"));
-
+        notifyC();
     }
-    
+
+    const notifyC = () => toast.success(`${product.name} removed from the cart`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        containerId: product.barcode
+        },
+        );
+
     const removeItemModal = () => (
         <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
             <div className="modal-dialog">
@@ -103,10 +118,12 @@ const CartItem = (props) => {
                         </div>
                     </div>
                 </div>
+                <ToastContainer containerId={product.barcode} position="top-right" />
             </div>
         ) : (
             <></>
         )
+        
     );
 };
 
