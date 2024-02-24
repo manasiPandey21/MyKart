@@ -56,7 +56,6 @@ const Cart = () => {
     draggable: true,
     progress: undefined,
     theme: "colored",
-
     },
     );
 

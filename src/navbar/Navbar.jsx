@@ -21,7 +21,17 @@ const Navbar = () => {
             sum += list[barcode];
         })
         setTotalQuantity(sum);
+        console.log('xx');
+        let user = localStorage.getItem('user') || '0';
+        setUser(user);
+        console.log(user);
     });
+    const [user, setUser] = useState(localStorage.getItem('user') || '0');
+
+    const LogoutUser = () => {
+        localStorage.setItem('user', JSON.stringify(0));
+        window.dispatchEvent(new Event("storage"));
+    }
 
     return (
         <nav className='navbar navbar-expand navbar-light bg-light fixed-top shadow-sm py-3 '>
@@ -41,7 +51,11 @@ const Navbar = () => {
                         </a>
                     </li>
                     <li className="nav-item ms-3 me-4">
-                        <a href="./login"><i className="bi bi-box-arrow-in-right h2 text-body"></i></a>
+                        {
+                            (user != '0') ?
+                                <a href="./login"><i className="bi bi-box-arrow-right h2 text-body" onClick={() => LogoutUser()}></i></a> :
+                                <a href="./login"><i className="bi bi-box-arrow-in-right h2 text-body"></i></a>
+                        }
                     </li>
                 </ul>
             </div>
