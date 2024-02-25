@@ -6,11 +6,16 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  let cart;
 
   const handleLogin = (e) => {
     const user = userData.find((user) => user.email === email && user.password === password);
     if (user) {
       localStorage.setItem('user', user.id);
+      cart=JSON.parse(localStorage.getItem('cart')) || {};
+      cart[user.id]={...cart[user.id], ...cart[0]};
+      cart[0]={};
+      localStorage.setItem('cart', JSON.stringify(cart));
       navigate('/');
     } else {
       alert('User does not exist');
