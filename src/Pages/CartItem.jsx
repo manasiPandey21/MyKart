@@ -9,34 +9,41 @@ const CartItem = (props) => {
     const [quantity, setQuantity] = useState(0);
     let pdata;
     let cart;
+    let currUser;
 
     useEffect(() => {
+        currUser=parseInt(localStorage.getItem('user')) || 0;
         pdata = PData.find((item) => item.barcode === props.barcode);
         setProduct(pdata);
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
-        if (parseInt(cart[props.barcode]) >= 1) setQuantity(parseInt(cart[props.barcode]));
+        if(!cart[currUser]) cart[currUser]={};
+        if (parseInt(cart[currUser][props.barcode]) >= 1) setQuantity(parseInt(cart[currUser][props.barcode]));
         else setQuantity(0);
     }, [props.barcode]);
 
     const incNum = () => {
+        currUser=parseInt(localStorage.getItem('user')) || 0;
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
+        if(!cart[currUser]) cart[currUser]={};
         setQuantity(quantity + 1);
-        cart[props.barcode] = quantity + 1;
+        cart[currUser][props.barcode] = quantity + 1;
         localStorage.setItem('cart', JSON.stringify(cart));
         props.orderSummary();
         window.dispatchEvent(new Event("storage"));
     }
 
     const decNum = () => {
+        currUser=parseInt(localStorage.getItem('user')) || 0;
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
+        if(!cart[currUser]) cart[currUser]={};
         setQuantity(quantity - 1);
         if (quantity <= 1) {
-            delete cart[props.barcode];
+            delete cart[currUser][props.barcode];
         } else {
-            cart[props.barcode] = quantity - 1;
+            cart[currUser][props.barcode] = quantity - 1;
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         props.orderSummary();
@@ -44,10 +51,12 @@ const CartItem = (props) => {
     }
 
     const removeItem = () => {
+        currUser=parseInt(localStorage.getItem('user')) || 0;
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
+        if(!cart[currUser]) cart[currUser]={};
         setQuantity(0);
-        delete cart[props.barcode];
+        delete cart[currUser][props.barcode];
         localStorage.setItem('cart', JSON.stringify(cart));
         props.orderSummary();
         window.dispatchEvent(new Event("storage"));

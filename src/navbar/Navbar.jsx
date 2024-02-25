@@ -6,7 +6,7 @@ const Navbar = () => {
     let [totalQuantity, setTotalQuantity] = useState(0);
     let list = JSON.parse(localStorage.getItem('cart')) || {};
     const [user, setUser] = useState(parseInt(localStorage.getItem('user')) || 0);
-    if(!list[user]) list[user]={};
+    if (!list[user]) list[user] = {};
     let cartItems = Object.keys(list[user]);
     let sum = 0;
 
@@ -19,11 +19,11 @@ const Navbar = () => {
         let user = parseInt(localStorage.getItem('user')) || 0;
         setUser(user);
         list = JSON.parse(localStorage.getItem('cart')) || {};
-        if(!list[user]) list[user]={};
+        if (!list[user]) list[user] = {};
         cartItems = Object.keys(list[user]);
         sum = 0;
         cartItems.forEach((barcode) => {
-            sum +=(list[user][barcode]);
+            sum += (list[user][barcode]);
         })
         setTotalQuantity(sum);
     });

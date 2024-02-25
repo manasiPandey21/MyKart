@@ -11,7 +11,9 @@ const Cart = () => {
   let [totalamount, setTotalAmount] = useState(0);
   let [discount, setDiscount] = useState(0);
   let list = JSON.parse(localStorage.getItem('cart')) || {};
-  let cartItems = Object.keys(list);
+  let [user, setUser] = useState(parseInt(localStorage.getItem('user')) || 0);
+  if (!list[user]) list[user] = {};
+  let cartItems = Object.keys(list[user]);
 
   useEffect(() => {
     orderSummary();
@@ -22,10 +24,11 @@ const Cart = () => {
     let totalamountTemp = 0;
     let discountTemp = 0;
     list = JSON.parse(localStorage.getItem('cart')) || {};
-    cartItems = Object.keys(list);
+    if(!list[user]) list[user]={};
+    cartItems = Object.keys(list[user]);
     cartItems.forEach((barcode) => {
       let pdata = PData.find((item) => item.barcode === barcode);
-      let quantity = list[barcode];
+      let quantity = list[user][barcode];
 
       orderValueTemp += pdata.mrp * quantity;
       totalamountTemp += pdata.price * quantity;
@@ -37,12 +40,16 @@ const Cart = () => {
   }
 
   const removeAll = () => {
-    localStorage.removeItem('cart');
-    list = {};
+    list = JSON.parse(localStorage.getItem('cart')) || {};
+    user=parseInt(localStorage.getItem('user')) || 0;
+    setUser(user);
+    list[user]={};
+    localStorage.setItem('cart',JSON.stringify(list));
     cartItems = [];
     setOrderValue(0);
     setTotalAmount(0);
     setDiscount(0);
+    console.log("kapil");
     window.dispatchEvent(new Event("storage"));
     notifyD();
   }
@@ -56,8 +63,8 @@ const Cart = () => {
     draggable: true,
     progress: undefined,
     theme: "colored",
-    },
-    );
+  },
+  );
 
   const removeAllModal = () => (
     <div className="modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
