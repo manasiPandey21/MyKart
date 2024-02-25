@@ -8,6 +8,7 @@ const Card = (props) => {
     const [isHovering, setIsHovering] = useState(false);
 
     let cart;
+    let currUser;
 
     const handleMouseOver = () => {
         setIsHovering(true);
@@ -31,17 +32,23 @@ const Card = (props) => {
 
     useEffect(() => {
         cart = JSON.parse(localStorage.getItem('cart'));
+        currUser=parseInt(localStorage.getItem('user')) || 0;
+        if(currUser==0) localStorage.setItem('user',0);
         if (!cart) cart = {};
-        if (parseInt(cart[props.barcode]) >= 1) setQuantity(parseInt(cart[props.barcode]));
+        if(!cart[currUser]) cart[currUser]={};
+        if (parseInt(cart[currUser][props.barcode]) >= 1) setQuantity(parseInt(cart[currUser][props.barcode]));
         else setQuantity(0);
     }, [props.barcode]);
 
     const addToCart = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
+        currUser=parseInt(localStorage.getItem('user')) || 0;
+        if(currUser==0) localStorage.setItem('user',0);
         if (!cart) cart = {};
-        cart[props.barcode] = 1;
+        if(!cart[currUser]) cart[currUser]={};
+        cart[currUser][props.barcode] = 1;
         localStorage.setItem('cart', JSON.stringify(cart));
-        if (parseInt(cart[props.barcode]) >= 1) setQuantity(parseInt(cart[props.barcode]));
+        if (parseInt(cart[currUser][props.barcode]) >= 1) setQuantity(parseInt(cart[currUser][props.barcode]));
         else setQuantity(0);
         window.dispatchEvent(new Event("storage"));
         notifyA();
@@ -49,18 +56,24 @@ const Card = (props) => {
 
     const incNum = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
+        currUser=parseInt(localStorage.getItem('user')) || 0;
+        if(currUser==0) localStorage.setItem('user',0);
         if (!cart) cart = {};
+        if(!cart[currUser]) cart[currUser]={};
         setQuantity(quantity + 1);
-        cart[props.barcode] = quantity + 1;
+        cart[currUser][props.barcode] = quantity + 1;
         localStorage.setItem('cart', JSON.stringify(cart));
         window.dispatchEvent(new Event("storage"));
     }
 
     const decNum = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
+        currUser=parseInt(localStorage.getItem('user')) || 0;
+        if(currUser==0) localStorage.setItem('user',0);
         if (!cart) cart = {};
+        if(!cart[currUser]) cart[currUser]={};
         setQuantity(quantity - 1);
-        cart[props.barcode] = quantity - 1;
+        cart[currUser][props.barcode] = quantity - 1;
         localStorage.setItem('cart', JSON.stringify(cart));
         window.dispatchEvent(new Event("storage"));
     }

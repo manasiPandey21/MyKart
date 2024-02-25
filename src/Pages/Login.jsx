@@ -10,7 +10,7 @@ const Login = () => {
   const handleLogin = (e) => {
     const user = userData.find((user) => user.email === email && user.password === password);
     if (user) {
-      localStorage.setItem('user', JSON.stringify(user.id));
+      localStorage.setItem('user', user.id);
       navigate('/');
     } else {
       alert('User does not exist');

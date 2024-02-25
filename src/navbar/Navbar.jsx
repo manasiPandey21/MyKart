@@ -5,31 +5,31 @@ import "bootstrap/dist/css/bootstrap.min.css"
 const Navbar = () => {
     let [totalQuantity, setTotalQuantity] = useState(0);
     let list = JSON.parse(localStorage.getItem('cart')) || {};
-    let cartItems = Object.keys(list);
+    const [user, setUser] = useState(parseInt(localStorage.getItem('user')) || 0);
+    if(!list[user]) list[user]={};
+    let cartItems = Object.keys(list[user]);
     let sum = 0;
 
     cartItems.forEach((barcode) => {
-        sum += list[barcode];
+        sum += list[user][barcode];
     });
     totalQuantity = sum;
 
     window.addEventListener("storage", (e) => {
+        let user = parseInt(localStorage.getItem('user')) || 0;
+        setUser(user);
         list = JSON.parse(localStorage.getItem('cart')) || {};
-        cartItems = Object.keys(list);
+        if(!list[user]) list[user]={};
+        cartItems = Object.keys(list[user]);
         sum = 0;
         cartItems.forEach((barcode) => {
-            sum += list[barcode];
+            sum +=(list[user][barcode]);
         })
         setTotalQuantity(sum);
-        console.log('xx');
-        let user = localStorage.getItem('user') || '0';
-        setUser(user);
-        console.log(user);
     });
-    const [user, setUser] = useState(localStorage.getItem('user') || '0');
 
     const LogoutUser = () => {
-        localStorage.setItem('user', JSON.stringify(0));
+        localStorage.setItem('user', 0);
         window.dispatchEvent(new Event("storage"));
     }
 

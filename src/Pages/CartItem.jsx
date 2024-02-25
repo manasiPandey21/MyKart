@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const CartItem = (props) => {
     const [product, setProduct] = useState();
     const [quantity, setQuantity] = useState(0);
@@ -29,7 +28,7 @@ const CartItem = (props) => {
         props.orderSummary();
         window.dispatchEvent(new Event("storage"));
     }
-    
+
     const decNum = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
@@ -65,8 +64,8 @@ const CartItem = (props) => {
         progress: undefined,
         theme: "colored",
         containerId: product.barcode
-        },
-        );
+    },
+    );
 
     const removeItemModal = () => (
         <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
@@ -77,7 +76,7 @@ const CartItem = (props) => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body fs-3">
-                    {product.name} will be removed from the cart. Are you sure?
+                        {product.name} will be removed from the cart. Are you sure?
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-outline-secondary fs-4 px-3" data-bs-dismiss="modal">No</button>
@@ -123,7 +122,7 @@ const CartItem = (props) => {
         ) : (
             <></>
         )
-        
+
     );
 };
 
