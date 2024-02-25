@@ -79,7 +79,7 @@ const Card = (props) => {
     }
 
     return (
-        <div className='col-10 col-sm-6 col-md-4 col-lg-3 '>
+        <div className='col-12 col-sm-6 col-md-4 col-lg-3 '>
             <div className='card m-2 border-0 h-100' onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}>
                 <NavLink to={`/product?barcode=${props.barcode}`}>

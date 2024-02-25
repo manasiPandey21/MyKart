@@ -214,9 +214,9 @@ const Home = () => {
           </div>
         </div>
         <div className='row'>
-          <div className='margin-fix col-2'>
+          <div className='col-2 d-none d-md-block'>
             <div className='margin-fixed sticky-top'>
-              <div className='card border-0 shadow-sm' style={{ width: '23rem', maxHeight: '670px', overflowY: 'auto', scrollbarWidth: 'thin', scrollbarColor: 'transparent transparent' }}>
+              <div className='card border-0 shadow-sm' style={{ maxHeight: '670px', overflowY: 'auto', scrollbarWidth: 'thin', scrollbarColor: 'transparent transparent' }}>
                 <ul className='list-group list-group-flush'>
                   <li className='list-group-item fs-2 fw-semibold d-flex align-items-center'>Filters {appliedBrands.length > 0 || appliedColors.length > 0 || appliedGenders.length > 0 || appliedCategories.length > 0 ? (
                     <button type="button" class="btn btn-outline-dark px-3 ms-auto py-0 fs-4" onClick={() => resetItems()}>Reset</button>
@@ -351,7 +351,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className='col-10 mx-auto pt-2'>
+          <div className='col-12 col-md-10 mx-auto pt-2'>
             <div className='row gy-4'>
               {
                 filteredProducts.length > 0 ? (
