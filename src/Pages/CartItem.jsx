@@ -12,21 +12,21 @@ const CartItem = (props) => {
     let currUser;
 
     useEffect(() => {
-        currUser=parseInt(localStorage.getItem('user')) || 0;
+        currUser = parseInt(localStorage.getItem('user')) || 0;
         pdata = PData.find((item) => item.barcode === props.barcode);
         setProduct(pdata);
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
-        if(!cart[currUser]) cart[currUser]={};
+        if (!cart[currUser]) cart[currUser] = {};
         if (parseInt(cart[currUser][props.barcode]) >= 1) setQuantity(parseInt(cart[currUser][props.barcode]));
         else setQuantity(0);
     }, [props.barcode]);
 
     const incNum = () => {
-        currUser=parseInt(localStorage.getItem('user')) || 0;
+        currUser = parseInt(localStorage.getItem('user')) || 0;
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
-        if(!cart[currUser]) cart[currUser]={};
+        if (!cart[currUser]) cart[currUser] = {};
         setQuantity(quantity + 1);
         cart[currUser][props.barcode] = quantity + 1;
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -35,10 +35,10 @@ const CartItem = (props) => {
     }
 
     const decNum = () => {
-        currUser=parseInt(localStorage.getItem('user')) || 0;
+        currUser = parseInt(localStorage.getItem('user')) || 0;
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
-        if(!cart[currUser]) cart[currUser]={};
+        if (!cart[currUser]) cart[currUser] = {};
         setQuantity(quantity - 1);
         if (quantity <= 1) {
             delete cart[currUser][props.barcode];
@@ -51,10 +51,10 @@ const CartItem = (props) => {
     }
 
     const removeItem = () => {
-        currUser=parseInt(localStorage.getItem('user')) || 0;
+        currUser = parseInt(localStorage.getItem('user')) || 0;
         cart = JSON.parse(localStorage.getItem('cart'));
         if (!cart) cart = {};
-        if(!cart[currUser]) cart[currUser]={};
+        if (!cart[currUser]) cart[currUser] = {};
         setQuantity(0);
         delete cart[currUser][props.barcode];
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -72,7 +72,7 @@ const CartItem = (props) => {
         draggable: true,
         progress: undefined,
         theme: "colored",
-        containerId: product.barcode
+        containerId: props.barcode
     },
     );
 
@@ -97,8 +97,8 @@ const CartItem = (props) => {
     );
 
     return (
-        quantity ? (
-            <div className="card-body align-items-start">
+        <div className="card-body align-items-start">
+            {quantity ? (
                 <div className="row p-3 align-items-center">
                     <div className="col-md-3 ">
                         <img src={product?.searchImage} alt="Product" className="img-fluid" />
@@ -126,13 +126,13 @@ const CartItem = (props) => {
                         </div>
                     </div>
                 </div>
-                <ToastContainer containerId={product.barcode} position="top-right" />
-            </div>
-        ) : (
-            <></>
-        )
-
-    );
+            ) : (
+                <></>
+            )
+            }
+            <ToastContainer containerId={props.barcode} position="top-right" />
+        </div>
+    )
 };
 
 export default CartItem;
