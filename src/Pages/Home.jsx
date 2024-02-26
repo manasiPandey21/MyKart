@@ -123,7 +123,6 @@ const Home = () => {
           break;
       }
     }
-    console.log(appliedBrands)
     let tempProducts = PData;
 
     if (appliedBrands.length) {
@@ -140,7 +139,6 @@ const Home = () => {
       tempProducts = tempProducts.filter((product) => appliedGenders.includes(product.gender))
     }
     setFilteredProducts(tempProducts);
-    console.log(appliedBrands)
 
     let filters = {
       brands: appliedBrands,

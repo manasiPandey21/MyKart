@@ -25,7 +25,8 @@ const Navbar = () => {
         cartItems.forEach((barcode) => {
             sum += (list[user][barcode]);
         })
-        setTotalQuantity(sum);
+        totalQuantity = sum;
+        setTotalQuantity(totalQuantity);
     });
 
     const LogoutUser = () => {

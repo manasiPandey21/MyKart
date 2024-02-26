@@ -44,11 +44,11 @@ const Cart = () => {
     setUser(user);
     list[user] = {};
     localStorage.setItem('cart', JSON.stringify(list));
+    window.dispatchEvent(new Event("storage"));
     cartItems = [];
     setOrderValue(0);
     setTotalAmount(0);
     setDiscount(0);
-    window.dispatchEvent(new Event("storage"));
     notifyD();
   }
 
@@ -62,7 +62,6 @@ const Cart = () => {
     progress: undefined,
     theme: "colored",
   },
-    console.log("notify d should be printed")
   );
 
   const removeAllModal = () => (

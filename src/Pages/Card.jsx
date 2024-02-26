@@ -28,24 +28,24 @@ const Card = (props) => {
         progress: undefined,
         theme: "colored",
         containerId: props.barcode
-        });
+    });
 
     useEffect(() => {
         cart = JSON.parse(localStorage.getItem('cart'));
-        currUser=parseInt(localStorage.getItem('user')) || 0;
-        if(currUser==0) localStorage.setItem('user',0);
+        currUser = parseInt(localStorage.getItem('user')) || 0;
+        if (currUser == 0) localStorage.setItem('user', 0);
         if (!cart) cart = {};
-        if(!cart[currUser]) cart[currUser]={};
+        if (!cart[currUser]) cart[currUser] = {};
         if (parseInt(cart[currUser][props.barcode]) >= 1) setQuantity(parseInt(cart[currUser][props.barcode]));
         else setQuantity(0);
     }, [props.barcode]);
 
     const addToCart = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
-        currUser=parseInt(localStorage.getItem('user')) || 0;
-        if(currUser==0) localStorage.setItem('user',0);
+        currUser = parseInt(localStorage.getItem('user')) || 0;
+        if (currUser == 0) localStorage.setItem('user', 0);
         if (!cart) cart = {};
-        if(!cart[currUser]) cart[currUser]={};
+        if (!cart[currUser]) cart[currUser] = {};
         cart[currUser][props.barcode] = 1;
         localStorage.setItem('cart', JSON.stringify(cart));
         if (parseInt(cart[currUser][props.barcode]) >= 1) setQuantity(parseInt(cart[currUser][props.barcode]));
@@ -56,10 +56,10 @@ const Card = (props) => {
 
     const incNum = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
-        currUser=parseInt(localStorage.getItem('user')) || 0;
-        if(currUser==0) localStorage.setItem('user',0);
+        currUser = parseInt(localStorage.getItem('user')) || 0;
+        if (currUser == 0) localStorage.setItem('user', 0);
         if (!cart) cart = {};
-        if(!cart[currUser]) cart[currUser]={};
+        if (!cart[currUser]) cart[currUser] = {};
         setQuantity(quantity + 1);
         cart[currUser][props.barcode] = quantity + 1;
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -68,10 +68,10 @@ const Card = (props) => {
 
     const decNum = () => {
         cart = JSON.parse(localStorage.getItem('cart'));
-        currUser=parseInt(localStorage.getItem('user')) || 0;
-        if(currUser==0) localStorage.setItem('user',0);
+        currUser = parseInt(localStorage.getItem('user')) || 0;
+        if (currUser == 0) localStorage.setItem('user', 0);
         if (!cart) cart = {};
-        if(!cart[currUser]) cart[currUser]={};
+        if (!cart[currUser]) cart[currUser] = {};
         setQuantity(quantity - 1);
         cart[currUser][props.barcode] = quantity - 1;
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -104,19 +104,21 @@ const Card = (props) => {
                                 </span>
                             </h5>
                         </div>
-                        <div className='col text-end'>
+                        <div className='col-auto text-end'>
                             {
                                 quantity ? (
-                                    <div className='align-self-end py-1'>
-                                        <span className='border border-success py-2 my-5 rounded  align-content-end'>
-                                            <a onClick={() => decNum()}><i className="bi bi-dash-lg m-3 py-4 px-1 align-middle"></i></a>
-                                            <span className='fs-3 fw-medium text-success py-5 my-3 align-middle'>{quantity}</span>
-                                            <a onClick={() => incNum()}><i className="bi bi-plus-lg py-4 px-4 align-middle"></i></a>
-                                        </span>
+                                    <div className='py-1 border border-success rounded '>
+                                        <a onClick={() => decNum()}><i className="bi bi-dash-lg my-3 py-4 px-4 align-middle"></i></a>
+                                        <span className='fs-3 fw-medium text-success py-5 my-3 align-middle'>{quantity}</span>
+                                        <a onClick={() => incNum()}><i className="bi bi-plus-lg py-4 px-4 align-middle"></i></a>
                                     </div>
                                 ) : (
-                                    isHovering && (
+                                    isHovering ? (
                                         <button type='button' className='btn btn-outline-success btn-lg on-hover' onClick={() => addToCart()}>
+                                            Add to Cart
+                                        </button>
+                                    ) : (
+                                        <button type='button' className='btn btn-outline-success btn-lg on-hover d-md-none' onClick={() => addToCart()}>
                                             Add to Cart
                                         </button>
                                     )
