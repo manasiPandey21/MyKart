@@ -349,6 +349,160 @@ const Home = () => {
               </div>
             </div>
           </div>
+          {/* For mobile view */}
+          <div className='d-md-none'>
+            <button
+              type="button"
+              className="btn btn-md"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#sidebar"
+              aria-controls="sidebar"
+            >
+              <span className="navbar-toggler-icon bi bi-list fs-1 fw-bold"></span>
+            </button>
+
+            <div className="offcanvas offcanvas-start width: 80%;" tabIndex="-1" id="sidebar" aria-labelledby="sidebarLabel" >
+              <div className="offcanvas-header">
+                <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div className="offcanvas-body">
+                <ul className='list-group list-group-flush'>
+                  <li className='list-group-item fs-2 fw-semibold d-flex align-items-center'>
+                    Filters {appliedBrands.length > 0 || appliedColors.length > 0 || appliedGenders.length > 0 || appliedCategories.length > 0 ? (
+                      <button type="button" className="btn btn-outline-dark px-3 ms-auto py-0 fs-4" onClick={() => resetItems()}>Reset</button>
+                    ) : null}
+                  </li>
+                  <li className='list-group-item'>
+                    <span
+                      className='p-1 fs-3 pointer'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#brandCollapse'
+                      aria-expanded={brandCollapseOpen ? 'true' : 'false'}
+                      aria-controls='brandCollapse'
+                      onClick={() => setBrandCollapseOpen(!brandCollapseOpen)}
+                    >
+                      Brands <i className="bi bi-chevron-down"></i>
+                      {appliedBrands.length >= 1 ? (
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1 mx-2">{appliedBrands.length}</span>
+                      ) : null}
+                    </span>
+                    <div className={`collapse ${brandCollapseOpen ? 'show' : ''}`} id='brandCollapse'>
+                      <div className=' card-body '>
+                        {brands.map((brand, index) => (
+                          <div className='form-check' key={index}>
+                            <input
+                              className='form-check-input pointer'
+                              type='checkbox'
+                              value={brand}
+                              checked={appliedBrands.includes(brand) ? true : false}
+                              id={`brandCheckbox-${index}`}
+                              name={`brandCheckbox-${brand}`}
+                              onChange={(e) => {
+                                addToFilter(e, 'brand', brand);
+                              }}
+                            />
+                            <label className='form-check-label fs-5 p-1' htmlFor={`brandCheckbox-${index}`}>
+                              {brand}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                  <li className='list-group-item'>
+                    <span className='p-2 fs-3 pointer'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#categoryCollapse'
+                      aria-controls='categoryCollapse'
+                      aria-expanded={categoryCollapseOpen ? 'true' : 'false'}
+                      onClick={() => setCategoryCollapseOpen(!categoryCollapseOpen)}
+                    >
+                      Categories <i class="bi bi-chevron-down"></i>
+                      {appliedCategories.length > 0 ? (
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1 mx-2">{appliedCategories.length}</span>
+                      ) : null}
+                    </span>
+                    <div className={`collapse ${categoryCollapseOpen ? 'show' : ''}`} id='categoryCollapse'>
+                      <div className=' card-body '>
+                        {categories.map((category, index) => (
+                          <div className='form-check' key={index}>
+                            <input className='form-check-input pointer'
+                              type='checkbox'
+                              value={category}
+                              checked={appliedCategories.includes(category) ? true : false}
+                              id={`categoryCheckbox-${index}`}
+                              onChange={(e) => addToFilter(e, 'category', category)} />
+                            <label className='form-check-label fs-5 p-1' htmlFor={`categoryCheckbox-${index}`}>
+                              {category}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                  <li className='list-group-item'>
+                    <span className='p-2 fs-3 pointer'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#colorCollapse'
+                      aria-controls='colorCollapse'
+                      aria-expanded={colorCollapseOpen ? 'true' : 'false'}
+                      onClick={() => setColorCollapseOpen(!colorCollapseOpen)}
+                    >
+                      Colors <i class="bi bi-chevron-down"></i>{appliedColors.length > 0 ? (
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1 mx-2">{appliedColors.length}</span>
+                      ) : null}
+                    </span>
+                    <div className={`collapse ${colorCollapseOpen ? 'show' : ''}`} id='colorCollapse'>
+                      <div className=' card-body '>
+                        {colors.map((color, index) => (
+                          <div className='form-check' key={index}>
+                            <input className='form-check-input pointer'
+                              type='checkbox'
+                              value={color}
+                              checked={appliedColors.includes(color) ? true : false}
+                              id={`colorCheckbox-${index}`} onChange={(e) => addToFilter(e, 'color', color)} />
+                            <label className='form-check-label fs-5 p-1' htmlFor={`colorCheckbox-${index}`}>
+                              {color}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                  <li className='list-group-item'>
+                    <span className='p-2 fs-3 pointer'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#genderCollapse'
+                      aria-controls='genderCollapse'
+                      aria-expanded={genderCollapseOpen ? 'true' : 'false'}
+                      onClick={() => setGenderCollapseOpen(!genderCollapseOpen)}
+                    >
+                      Genders <i class="bi bi-chevron-down"></i>{appliedGenders.length > 0 ? (
+                        <span className="badge rounded-pill bg-success fs-5 px-2 py-1 mx-2">{appliedGenders.length}</span>
+                      ) : null}
+                    </span>
+                    <div className={`collapse ${genderCollapseOpen ? 'show' : ''}`} id='genderCollapse'>
+                      <div className=' card-body '>
+                        {genders.map((gender, index) => (
+                          <div className='form-check' key={index}>
+                            <input className='form-check-input pointer'
+                              type='checkbox'
+                              value={gender}
+                              checked={appliedGenders.includes(gender) ? true : false}
+                              id={`genderCheckbox-${index}`} onChange={(e) => addToFilter(e, 'gender', gender)} />
+                            <label className='form-check-label fs-5 p-1' htmlFor={`genderCheckbox-${index}`}>
+                              {gender}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           <div className='col-12 col-md-10 mx-auto pt-2'>
             <div className='row gy-4'>
               {
