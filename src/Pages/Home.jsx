@@ -4,7 +4,6 @@ import PData from '../data/products';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-
 const Home = () => {
   let brands = [...new Set(PData.map((Val) => Val.brand))];
   let categories = [...new Set(PData.map((Val) => Val.category))];
@@ -63,7 +62,6 @@ const Home = () => {
     setAppliedGenders([]);
     sessionStorage.setItem('filters',JSON.stringify({}));
   }
-
 
   let addToFilter = (e, type, val) => {
     let filtersInSessionStorage = JSON.parse(sessionStorage.getItem('filters'));

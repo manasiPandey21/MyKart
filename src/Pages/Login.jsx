@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
 import userData from '../data/user';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   let cart;
+
+  const notifyG = () => toast.error("User does not exist", {
+    position: "top-right",
+    autoClose: 10000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  },
+  );
 
   const handleLogin = (e) => {
     const user = userData.find((user) => user.email === email && user.password === password);
@@ -18,7 +32,7 @@ const Login = () => {
       localStorage.setItem('cart', JSON.stringify(cart));
       navigate('/');
     } else {
-      alert('User does not exist');
+      notifyG();
     }
     window.dispatchEvent(new Event("storage"));
   };
@@ -66,6 +80,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <ToastContainer position="top-right" />
     </div>
   );
 };
