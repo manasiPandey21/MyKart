@@ -129,7 +129,10 @@ const Cart = () => {
                   <hr />
                   <br />
                   <p className="card-text fw-bold fs-3 p-3 d-flex justify-content-between align-items-center">Total Amount <span>₹{totalamount}</span></p>
-                  <a href="#" className="btn btn-success w-100 p-3 fs-4">Login to place Order</a>
+                  {
+                    (user) ? <a href="./orderplaced" className="btn btn-success w-100 p-3 fs-4">Place Order</a> :
+                    <a href="./login" className="btn btn-success w-100 p-3 fs-4">Login to place Order</a>
+                  }
                 </div>
               </div>
             </div>
